@@ -12,7 +12,9 @@ os.environ["NVIDIA_API_KEY"] = "nvapi-pa_jBY6ZaU_7iEuMJI_sNi47MFNAAW0GMTQtaBBXEJ
 # ==========================================
 # 2. TEST MODE CONFIGURATION
 # ==========================================
-TEST_MODE = True
+# Set to True for testing (runs only 2 models)
+# Set to False for FULL COMPETITION (all 200+ models)
+TEST_MODE = False
 TEST_LIMIT = 2
 
 # ==========================================
@@ -31,11 +33,11 @@ try:
         competitors = competitors[:TEST_LIMIT]
         print(f"\n*** TEST MODE: Running {len(competitors)} models ***\n")
     else:
-        print(f"\nFound {len(competitors)} valid models. Starting Battle...\n")
+        print(f"\n*** FULL COMPETITION: {len(competitors)} models locked in ***\n")
     
-    print("Models to process:")
-    for m in competitors:
-        print(f" -> {m}")
+    print("Models in the arena:")
+    for i, m in enumerate(competitors, 1):
+        print(f"  {i}. {m}")
     print()
 
 except Exception as e:
@@ -67,6 +69,11 @@ OUTPUT:
 # ==========================================
 # 5. RUN LOOP (40 RPM Safe)
 # ==========================================
+print("=" * 60)
+print("  BATTLE STARTED - MAY THE BEST MODEL WIN!")
+print("=" * 60)
+print()
+
 for model_id in competitors:
     print(f"--- Calling: {model_id} ---")
     try:
@@ -96,4 +103,7 @@ for model_id in competitors:
     print("Waiting 2 seconds (Rate Limit Control)...")
     time.sleep(2)
 
-print("\nBATTLE COMPLETE. Review your .ipynb files.")
+print()
+print("=" * 60)
+print("  BATTLE COMPLETE. Review your .ipynb files.")
+print("=" * 60)
