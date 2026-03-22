@@ -1,0 +1,7 @@
+venv/
+*.ipynb
+jane_street_data/
+.env
+__pycache__/
+*.pyc
+.DS_Store

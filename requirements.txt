@@ -1,0 +1,7 @@
+langchain
+langchain-nvidia-ai-endpoints
+polars
+xgboost
+nbformat
+pandas
+pyarrow
