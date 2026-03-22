@@ -12,10 +12,8 @@ os.environ["NVIDIA_API_KEY"] = "nvapi-pa_jBY6ZaU_7iEuMJI_sNi47MFNAAW0GMTQtaBBXEJ
 # ==========================================
 # 2. TEST MODE CONFIGURATION
 # ==========================================
-# Set to True for testing (runs only 2 models)
-# Set to False for full competition (all 200+ models)
 TEST_MODE = True
-TEST_LIMIT = 2  # Number of models to test
+TEST_LIMIT = 2
 
 # ==========================================
 # 3. OFFICIAL MODEL DISCOVERY
@@ -29,14 +27,12 @@ try:
         and not any(x in m.id.lower() for x in ["embed", "rerank", "vision", "reward", "safety"])
     ]
     
-    # Test mode: limit to first N models
     if TEST_MODE:
         competitors = competitors[:TEST_LIMIT]
         print(f"\n*** TEST MODE: Running {len(competitors)} models ***\n")
     else:
         print(f"\nFound {len(competitors)} valid models. Starting Battle...\n")
     
-    # Show models to be run
     print("Models to process:")
     for m in competitors:
         print(f" -> {m}")
@@ -76,25 +72,26 @@ for model_id in competitors:
     try:
         llm = ChatNVIDIA(model=model_id)
         chain = prompt_template | llm
+        
+        print("  -> Sending request to NVIDIA API...")
         response = chain.invoke({})
-
-        # Clean up code if AI used backticks
+        print("  -> Response received!")
+        
         code_content = response.content
         if "```" in code_content:
             code_content = code_content.split("```")[1].replace("python", "").split("```")[0].strip()
-
-        # Save as Notebook
+        
         nb = nbf.v4.new_notebook()
         nb.cells.append(nbf.v4.new_markdown_cell(f"# Results for model: {model_id}"))
         nb.cells.append(nbf.v4.new_code_cell(code_content))
-
+        
         fname = f"{model_id.replace('/', '_').replace(':', '_')}.ipynb"
         with open(fname, 'w', encoding='utf-8') as f:
             nbf.write(nb, f)
-        print(f"Created: {fname}")
+        print(f"  -> Created: {fname}\n")
 
     except Exception as e:
-        print(f"Failed {model_id}: {e}")
+        print(f"  -> FAILED {model_id}: {e}\n")
 
     print("Waiting 2 seconds (Rate Limit Control)...")
     time.sleep(2)
