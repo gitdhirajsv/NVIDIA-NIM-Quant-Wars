@@ -10,7 +10,15 @@ from langchain_core.prompts import ChatPromptTemplate
 os.environ["NVIDIA_API_KEY"] = "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"
 
 # ==========================================
-# 2. OFFICIAL MODEL DISCOVERY
+# 2. TEST MODE CONFIGURATION
+# ==========================================
+# Set to True for testing (runs only 2 models)
+# Set to False for full competition (all 200+ models)
+TEST_MODE = True
+TEST_LIMIT = 2  # Number of models to test
+
+# ==========================================
+# 3. OFFICIAL MODEL DISCOVERY
 # ==========================================
 print("Fetching live model list from NVIDIA...")
 try:
@@ -20,20 +28,26 @@ try:
         if any(k in m.id.lower() for k in ["instruct", "chat", "coder", "nemotron"])
         and not any(x in m.id.lower() for x in ["embed", "rerank", "vision", "reward", "safety"])
     ]
-    print(f"Found {len(competitors)} valid models. Starting Battle...\n")
     
-    # Show first 10 models for verification
-    print("Top Competitors Found:")
-    for m in competitors[:10]:
+    # Test mode: limit to first N models
+    if TEST_MODE:
+        competitors = competitors[:TEST_LIMIT]
+        print(f"\n*** TEST MODE: Running {len(competitors)} models ***\n")
+    else:
+        print(f"\nFound {len(competitors)} valid models. Starting Battle...\n")
+    
+    # Show models to be run
+    print("Models to process:")
+    for m in competitors:
         print(f" -> {m}")
     print()
-    
+
 except Exception as e:
     print(f"CRITICAL ERROR: Could not fetch models. Check your API Key. Error: {e}")
     exit()
 
 # ==========================================
-# 3. DEFINE PROMPT
+# 4. DEFINE PROMPT
 # ==========================================
 prompt_template = ChatPromptTemplate.from_messages([
     ("system", "You are an elite Quant Developer. Output ONLY pure Python code."),
@@ -55,7 +69,7 @@ OUTPUT:
 ])
 
 # ==========================================
-# 4. RUN LOOP (40 RPM Safe)
+# 5. RUN LOOP (40 RPM Safe)
 # ==========================================
 for model_id in competitors:
     print(f"--- Calling: {model_id} ---")
@@ -63,25 +77,25 @@ for model_id in competitors:
         llm = ChatNVIDIA(model=model_id)
         chain = prompt_template | llm
         response = chain.invoke({})
-        
+
         # Clean up code if AI used backticks
         code_content = response.content
         if "```" in code_content:
             code_content = code_content.split("```")[1].replace("python", "").split("```")[0].strip()
-        
+
         # Save as Notebook
         nb = nbf.v4.new_notebook()
         nb.cells.append(nbf.v4.new_markdown_cell(f"# Results for model: {model_id}"))
         nb.cells.append(nbf.v4.new_code_cell(code_content))
-        
+
         fname = f"{model_id.replace('/', '_').replace(':', '_')}.ipynb"
         with open(fname, 'w', encoding='utf-8') as f:
             nbf.write(nb, f)
         print(f"Created: {fname}")
-        
+
     except Exception as e:
         print(f"Failed {model_id}: {e}")
-    
+
     print("Waiting 2 seconds (Rate Limit Control)...")
     time.sleep(2)
 
