@@ -6,7 +6,7 @@
 
 ## OVERVIEW
 
-**NVIDIA NIM Quant Wars** is an automated competition framework that pits 200+ NVIDIA NIM models against each other to solve the Jane Street Real-Time Market Data Forecasting challenge. Each model generates Python code using Polars and XGBoost to predict market movements from anonymized financial time series data.
+**NVIDIA NIM Quant Wars** is an automated competition framework that leverages NVIDIA's official API to discover and execute 200+ NIM models for solving the Jane Street Real-Time Market Data Forecasting challenge. Each model generates Python code using Polars and XGBoost to predict market movements from anonymized financial time series data.
 
 This is a **personal research project** exploring LLM-driven quantitative strategy generation and multi-model evaluation methodologies.
 
@@ -14,7 +14,8 @@ This is a **personal research project** exploring LLM-driven quantitative strate
 
 ## FEATURES
 
-* **Automated Model Discovery** - Parses 200+ NVIDIA NIM endpoints from CSV
+* **Official API Model Discovery** - Fetches verified model IDs directly from NVIDIA API
+* **Smart Model Filtering** - Excludes embedding, vision, and rerank models automatically
 * **Code Generation Pipeline** - Each model writes complete Python solutions
 * **Jupyter Notebook Output** - Clean .ipynb files with model attribution
 * **Rate-Limit Safe Execution** - 40 RPM compliant with 2-second delays
@@ -40,14 +41,15 @@ This is a **personal research project** exploring LLM-driven quantitative strate
 
 ```mermaid
 flowchart LR
-    A["nvidia_nim_models.csv"] --> B["Model Discovery"]
-    B --> C["LangChain Orchestrator"]
-    C --> D["NVIDIA NIM API"]
-    D --> E["Code Generation"]
-    E --> F["Jupyter Notebook"]
-    F --> G["Solution Archive"]
+    A["NVIDIA API"] --> B["Model Discovery"]
+    B --> C["Filter: instruct/chat/coder"]
+    C --> D["LangChain Orchestrator"]
+    D --> E["NVIDIA NIM API"]
+    E --> F["Code Generation"]
+    F --> G["Jupyter Notebook"]
+    G --> H["Solution Archive"]
     
-    H["jane_street_data/train.parquet"] -.-> E
+    I["jane_street_data/train.parquet"] -.-> F
 ```
 
 ----------------------------------------
@@ -100,14 +102,21 @@ flowchart LR
 
 ## MODEL FILTERING
 
-Only models with coding/logic capabilities are selected:
+Models are automatically filtered from NVIDIA's official API:
 
-| Keyword | Examples |
-|---------|----------|
-| **instruct** | llama-3-instruct, mistral-instruct |
-| **chat** | chatglm, vicuna-chat |
-| **coder** | code-codellama, starcoder |
-| **nemotron** | nemotron-4, nemotron-mini |
+| **Included** | **Excluded** |
+|--------------|--------------|
+| instruct     | embed        |
+| chat         | rerank       |
+| coder        | vision       |
+| nemotron     | reward       |
+|              | safety       |
+
+**Example Model IDs:**
+- `meta/llama-3.3-70b-instruct`
+- `nvidia/llama-3.1-nemotron-70b-instruct`
+- `mistralai/mixtral-8x22b-instruct-v0.1`
+- `codellama/codellama-70b-instruct`
 
 ----------------------------------------
 
@@ -117,7 +126,7 @@ Only models with coding/logic capabilities are selected:
 NVIDIA-NIM-Quant-Wars/
 ├── run_competition.py          # Main orchestrator script
 ├── start_battle.bat            # Windows launcher
-├── nvidia_nim_models.csv       # 200+ model endpoints
+├── requirements.txt            # Python dependencies
 ├── INSTRUCTIONS_FOR_QWEN.txt   # Code review guidelines
 ├── jane_street_data/
 │   └── train.parquet           # Competition dataset (download separately)
@@ -142,7 +151,7 @@ dir *_solution.ipynb
 
 **Open a specific model solution:**
 ```bash
-jupyter llama-3-instruct_solution.ipynb
+jupyter meta_llama-3.3-70b-instruct.ipynb
 ```
 
 ----------------------------------------
@@ -152,7 +161,7 @@ jupyter llama-3-instruct_solution.ipynb
 Each model generates a notebook with:
 
 ```python
-# Results for model: meta/llama-3-instruct
+# Results for model: meta/llama-3.3-70b-instruct
 
 import polars as pl
 import xgboost as xgb
@@ -177,10 +186,11 @@ model.fit(X_train, y_train)
 | Issue | Solution |
 |-------|----------|
 | **API Key Error** | Verify NVIDIA_API_KEY is set correctly |
-| **Model Not Found** | Check nvidia_nim_models.csv for valid endpoints |
+| **No Models Found** | Check API key permissions and network connection |
 | **Rate Limit Exceeded** | Increase DELAY value in run_competition.py |
 | **Parquet Not Found** | Download data from Kaggle to jane_street_data/ |
 | **ImportError** | Run `pip install -r requirements.txt` in venv |
+| **404 Model Not Found** | Script now uses official API - should not occur |
 
 ----------------------------------------
 
@@ -208,8 +218,9 @@ model.fit(X_train, y_train)
 
 **Why NVIDIA NIM?**
 - 200+ diverse model architectures
-- Consistent API interface
+- Official API with verified model IDs
 - Cost-effective vs individual model APIs
+- Automatic model discovery (no CSV needed)
 
 ----------------------------------------
 

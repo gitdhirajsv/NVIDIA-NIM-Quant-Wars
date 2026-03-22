@@ -1,6 +1,6 @@
 @echo off
-title NIM Quant Arena - Launcher
-echo Starting NIM Quant Arena...
+title NVIDIA NIM Quant Wars - Launcher
+echo Starting NVIDIA NIM Quant Wars...
 
 :: Check for Virtual Environment
 if not exist "venv" (
