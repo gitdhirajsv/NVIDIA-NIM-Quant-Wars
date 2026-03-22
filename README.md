@@ -268,7 +268,7 @@ MIT License - See LICENSE file for details.
 
 ## AUTHOR
 
-**Dhiraj S V**
+**Dhiraj **
 - GitHub: https://github.com/gitdhirajsv
 - More Projects: https://github.com/gitdhirajsv/Azalyst-ETF-Intelligence
 
