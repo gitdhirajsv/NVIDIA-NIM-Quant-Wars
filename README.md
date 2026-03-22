@@ -127,7 +127,6 @@ NVIDIA-NIM-Quant-Wars/
 ├── run_competition.py          # Main orchestrator script
 ├── start_battle.bat            # Windows launcher
 ├── requirements.txt            # Python dependencies
-├── INSTRUCTIONS_FOR_QWEN.txt   # Code review guidelines
 ├── jane_street_data/
 │   └── train.parquet           # Competition dataset (download separately)
 ├── venv/                       # Virtual environment (auto-created)
