@@ -107,15 +107,16 @@ Only models with coding/logic capabilities are selected:
 
 ```
 NVIDIA-NIM-Quant-Wars/
-├── start_battle.bat          # Windows launcher (one-click)
-├── run_competition.py        # Main orchestrator script
-├── battle_royale.py          # Alternative runner
-├── download_data.py          # Jane Street data downloader
+├── start_battle.bat          # Windows launcher (one-click cleanup + run)
+├── run_competition.py        # Main orchestrator - fetches NVIDIA models & generates notebooks
+├── battle_royale.py          # Alternative standalone runner
+├── download_data.py          # Jane Street data downloader (~19GB)
 ├── requirements.txt          # Python dependencies
-├── nvidia_nim_models.csv     # 200+ model endpoints
+├── nvidia_nim_models.csv     # 200+ model endpoints reference
+├── .gitignore                # Excludes notebooks, logs, venv, data
 ├── jane_street_data/         # Competition dataset (download separately)
 ├── venv/                     # Virtual environment (auto-created)
-└── *.ipynb                   # Generated solutions (gitignored)
+└── *.ipynb                   # Generated solutions (gitignored - local only)
 ```
 
 ---
@@ -239,9 +240,8 @@ MIT License - See LICENSE file for details.
 
 ## AUTHOR
 
-**Dhiraj S V**
+**Dhiraj**
 - GitHub: https://github.com/gitdhirajsv
-- More Projects: https://github.com/gitdhirajsv/Azalyst-ETF-Intelligence
 
 ---
 
