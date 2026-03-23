@@ -1,5 +1,8 @@
+"""Jane Street Battle Royale - with Real Data Support"""
 import os
 import time
+import gc
+import datetime
 import nbformat as nbf
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_core.prompts import ChatPromptTemplate
@@ -18,8 +21,25 @@ TEST_MODE = False
 TEST_LIMIT = 2
 
 # ==========================================
+# 2b. SAFETY SETTINGS
+# ==========================================
+DELAY_SECONDS = 5  # Wait time between models (prevent rate limits & laptop stress)
+ENABLE_GC = True   # Force garbage collection between models
+LOG_ERRORS = True  # Save detailed error logs
+
+# ==========================================
 # 3. OFFICIAL MODEL DISCOVERY
 # ==========================================
+# Setup error log file
+if LOG_ERRORS:
+    log_file = f"competition_log_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+    log_handle = open(log_file, "w", encoding="utf-8")
+    def log(msg):
+        log_handle.write(f"[{datetime.datetime.now().strftime('%H:%M:%S')}] {msg}\n")
+        log_handle.flush()
+else:
+    def log(msg): pass
+
 print("Fetching live model list from NVIDIA...")
 try:
     all_models = ChatNVIDIA.get_available_models()
@@ -74,34 +94,64 @@ print("  BATTLE STARTED - MAY THE BEST MODEL WIN!")
 print("=" * 60)
 print()
 
-for model_id in competitors:
-    print(f"--- Calling: {model_id} ---")
+success_count = 0
+fail_count = 0
+
+for i, model_id in enumerate(competitors, 1):
+    print(f"[{i}/{len(competitors)}] Calling: {model_id}")
+    log(f"[{i}/{len(competitors)}] Processing: {model_id}")
     try:
         llm = ChatNVIDIA(model=model_id)
         chain = prompt_template | llm
-        
+
         print("  -> Sending request to NVIDIA API...")
+        log("  -> Sending API request...")
         response = chain.invoke({})
         print("  -> Response received!")
-        
+        log("  -> Response received successfully")
+
         code_content = response.content
-        if "```" in code_content:
-            code_content = code_content.split("```")[1].replace("python", "").split("```")[0].strip()
-        
+        # Extract code from markdown blocks
+        if "```python" in code_content:
+            code_content = code_content.split("```python")[1].split("```")[0].strip()
+        elif "```" in code_content:
+            code_content = code_content.split("```")[1].split("```")[0].strip()
+            # Remove language identifier if present
+            if code_content.startswith("python"):
+                code_content = code_content[6:].strip()
+
         nb = nbf.v4.new_notebook()
         nb.cells.append(nbf.v4.new_markdown_cell(f"# Results for model: {model_id}"))
         nb.cells.append(nbf.v4.new_code_cell(code_content))
-        
+
         fname = f"{model_id.replace('/', '_').replace(':', '_')}.ipynb"
         with open(fname, 'w', encoding='utf-8') as f:
             nbf.write(nb, f)
         print(f"  -> Created: {fname}\n")
+        log(f"  -> Notebook saved: {fname}")
+        success_count += 1
 
     except Exception as e:
-        print(f"  -> FAILED {model_id}: {e}\n")
+        fail_count += 1
+        error_msg = f"  -> FAILED {model_id}: {e}\n"
+        print(error_msg)
+        log(f"  -> ERROR: {e}")
 
-    print("Waiting 2 seconds (Rate Limit Control)...")
-    time.sleep(2)
+    # Safety: Garbage collection & delay
+    if ENABLE_GC:
+        gc.collect()
+    
+    print(f"  -> Waiting {DELAY_SECONDS} seconds (Rate Limit Control)...")
+    log(f"  -> Waiting {DELAY_SECONDS} seconds before next model...")
+    time.sleep(DELAY_SECONDS)
+
+# Close log file
+if LOG_ERRORS:
+    log_handle.write(f"\n=== SUMMARY ===\n")
+    log_handle.write(f"Success: {success_count}/{len(competitors)}\n")
+    log_handle.write(f"Failed: {fail_count}/{len(competitors)}\n")
+    log_handle.close()
+    print(f"\nError log saved to: {log_file}")
 
 print()
 print("=" * 60)

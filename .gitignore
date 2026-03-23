@@ -1,7 +1,60 @@
-venv/
-*.ipynb
+# Data files (too large for Git)
 jane_street_data/
-.env
+*.parquet
+*.zip
+
+# Trained models
+models/
+*.json
+*.pkl
+*.joblib
+
+# Python
 __pycache__/
 *.pyc
+*.pyo
+.env
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
 .DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Generated notebooks (recreated by start_battle.bat)
+*.ipynb
+executed_notebooks/
+
+# Logs and temp files
+competition_log_*.txt
+execution_output.log
+*.log
+
+# Instruction files (internal use only)
+INSTRUCTIONS_FOR_QWEN.txt
+FILES_SAFE_TO_DELETE.txt
+
+# Images
+*.png
+*.jpg
+*.jpeg
+*.gif
+
+# Old/backup files
+*.bak
+*.old
+qwen-here.bat
+run_one_by_one.bat
