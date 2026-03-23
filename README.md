@@ -1,61 +1,248 @@
-# NVIDIA NIM Quant Wars - Jane Street Forecasting
+# NVIDIA NIM QUANT WARS
 
-Battle Royale competition where 200+ NVIDIA NIM AI models compete to solve the Jane Street Market Forecasting challenge.
+> Multi-Model AI Battle Royale for Jane Street Real-Time Market Data Forecasting
 
-## Quick Start
+---
 
-```bash
-# Run the battle (Windows)
-start_battle.bat
+## OVERVIEW
+
+**NVIDIA NIM Quant Wars** is an automated competition framework that pits 200+ NVIDIA NIM models against each other to solve the Jane Street Real-Time Market Data Forecasting challenge. Each model generates Python code using Polars and XGBoost to predict market movements from anonymized financial time series data.
+
+This is a **personal research project** exploring LLM-driven quantitative strategy generation and multi-model evaluation methodologies.
+
+---
+
+## FEATURES
+
+- **Automated Model Discovery** - Parses 200+ NVIDIA NIM endpoints from CSV
+- **Code Generation Pipeline** - Each model writes complete Python solutions
+- **Jupyter Notebook Output** - Clean .ipynb files with model attribution
+- **Rate-Limit Safe Execution** - 40 RPM compliant with delays
+- **Polars + XGBoost Stack** - Optimized for large-scale parquet data
+- **Virtual Environment Isolation** - One-click setup via batch script
+
+---
+
+## COMPETITION REFERENCE
+
+| Detail | Value |
+|--------|-------|
+| **Competition** | Jane Street Real-Time Market Data Forecasting |
+| **Platform** | Kaggle |
+| **Dataset** | 79 anonymized features + 9 responder variables |
+| **Objective** | Forecast responder_6 (and other targets) from time series data |
+| **Data Type** | Real-world market data from production systems |
+| **Link** | https://www.kaggle.com/competitions/jane-street-real-time-market-data-forecasting |
+
+---
+
+## SYSTEM FLOW
+
+```
+nvidia_nim_models.csv → Model Discovery → LangChain Orchestrator → NVIDIA NIM API → Code Generation → Jupyter Notebook → Solution Archive
 ```
 
-This will:
-1. Clean up old generated files
-2. Create/check virtual environment
-3. Install dependencies
-4. Fetch models from NVIDIA API
-5. Generate Python notebooks one-by-one (with rate limiting)
+---
 
-## Project Structure
+## INSTALLATION
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/gitdhirajsv/NVIDIA-NIM-Quant-Wars.git
+   cd NVIDIA-NIM-Quant-Wars
+   ```
+
+2. **Download Competition Data**
+   - Visit: https://www.kaggle.com/competitions/jane-street-real-time-market-data-forecasting/data
+   - Download `train.parquet` and place in `jane_street_data/` folder
+
+3. **Set NVIDIA API Key**
+   ```bash
+   # Option A: Environment variable (recommended)
+   setx NVIDIA_API_KEY "your-api-key-here"
+
+   # Option B: Edit run_competition.py directly
+   ```
+
+4. **Run the Battle**
+   ```bash
+   # Windows
+   start_battle.bat
+
+   # Manual (cross-platform)
+   python -m venv venv
+   venv\Scripts\activate
+   pip install langchain langchain-nvidia-ai-endpoints polars xgboost nbformat pandas pyarrow
+   python run_competition.py
+   ```
+
+---
+
+## CONFIGURATION
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| **TOP_QUANTILE** | 15% | Threshold for feature engineering |
+| **RATE_LIMIT** | 40 RPM | API calls per minute |
+| **DELAY** | 5s | Between model calls |
+| **TARGET** | responder_6 | Primary prediction variable |
+| **FEATURES** | feature_00+ | 79 anonymized market features |
+
+---
+
+## MODEL FILTERING
+
+Only models with coding/logic capabilities are selected:
+
+| Keyword | Examples |
+|---------|----------|
+| **instruct** | llama-3-instruct, mistral-instruct |
+| **chat** | chatglm, vicuna-chat |
+| **coder** | code-codellama, starcoder |
+| **nemotron** | nemotron-4, nemotron-mini |
+
+---
+
+## FILE STRUCTURE
 
 ```
 NVIDIA-NIM-Quant-Wars/
-├── start_battle.bat          # One-click launcher
-├── run_competition.py        # Main orchestrator
+├── start_battle.bat          # Windows launcher (one-click)
+├── run_competition.py        # Main orchestrator script
 ├── battle_royale.py          # Alternative runner
 ├── download_data.py          # Jane Street data downloader
 ├── requirements.txt          # Python dependencies
-└── jane_street_data/         # Data folder (download first)
+├── nvidia_nim_models.csv     # 200+ model endpoints
+├── jane_street_data/         # Competition dataset (download separately)
+├── venv/                     # Virtual environment (auto-created)
+└── *.ipynb                   # Generated solutions (gitignored)
 ```
 
-## Prerequisites
+---
 
-- Python 3.10+
-- NVIDIA API Key (set in `run_competition.py`)
-- Kaggle account (for data download)
+## USAGE EXAMPLES
 
-## Setup
-
+**Run full competition:**
 ```bash
-# 1. Download Jane Street data (~19GB)
-python download_data.py
-
-# 2. Run the battle
 start_battle.bat
 ```
 
-## Configuration
+**Check generated solutions:**
+```bash
+# After completion, find all notebooks
+dir *.ipynb
+```
 
-Edit `run_competition.py`:
-- `TEST_MODE = True` - Run only 2 models (testing)
-- `TEST_MODE = False` - Run all 200+ models (full competition)
-- `DELAY_SECONDS = 5` - Rate limit delay between models
+**Open a specific model solution:**
+```bash
+jupyter llama-3-instruct_solution.ipynb
+```
 
-## Generated Files
+---
 
-- `*.ipynb` - Python notebooks from each AI model (auto-generated)
-- `competition_log_*.txt` - Execution logs
+## OUTPUT EXAMPLE
 
-## License
+Each model generates a notebook with:
 
-MIT License - See LICENSE file
+```python
+# Results for model: meta/llama-3-instruct
+
+import polars as pl
+import xgboost as xgb
+
+# Load data
+df = pl.scan_parquet("./jane_street_data/train.parquet")
+
+# Feature engineering: Top 15% quantile
+df = df.with_columns(
+    pl.col("feature_00").quantile(0.85).alias("top_threshold")
+)
+
+# Train XGBoost
+model = xgb.XGBRegressor(objective="reg:squarederror")
+model.fit(X_train, y_train)
+```
+
+---
+
+## TROUBLESHOOTING
+
+| Issue | Solution |
+|-------|----------|
+| **API Key Error** | Verify NVIDIA_API_KEY is set correctly |
+| **Model Not Found** | Check nvidia_nim_models.csv for valid endpoints |
+| **Rate Limit Exceeded** | Increase DELAY value in run_competition.py |
+| **Parquet Not Found** | Download data from Kaggle to jane_street_data/ |
+| **ImportError** | Run `pip install -r requirements.txt` in venv |
+
+---
+
+## LIMITATIONS
+
+- **API Rate Limits** - 40 RPM may slow full competition run (~5+ hours for 200 models)
+- **Data Access** - Competition dataset requires Kaggle account
+- **Model Variability** - Not all NIM models have equal coding capability
+- **No Live Evaluation** - Generated code must be tested separately
+- **Research Use Only** - Not production trading infrastructure
+
+---
+
+## ARCHITECTURE NOTES
+
+**Why Polars?**
+- Lazy evaluation for large parquet files
+- 10-100x faster than pandas for EDA
+- Native streaming support
+
+**Why XGBoost?**
+- Industry standard for tabular data
+- Handles missing values natively
+- Proven track record in Kaggle competitions
+
+**Why NVIDIA NIM?**
+- 200+ diverse model architectures
+- Consistent API interface
+- Cost-effective vs individual model APIs
+
+---
+
+## ATTRIBUTION
+
+**Dependencies:**
+- [LangChain](https://github.com/langchain-ai/langchain) - LLM orchestration
+- [NVIDIA NIM](https://build.nvidia.com/) - Model inference API
+- [Polars](https://pola.rs/) - Fast DataFrame library
+- [XGBoost](https://xgboost.readthedocs.io/) - Gradient boosting
+
+**Competition:**
+- [Jane Street Real-Time Market Data Forecasting](https://www.kaggle.com/competitions/jane-street-real-time-market-data-forecasting) - Kaggle
+
+---
+
+## LICENSE
+
+MIT License - See LICENSE file for details.
+
+---
+
+## DISCLAIMER
+
+**This project is for educational and research purposes only.**
+
+- Not affiliated with Jane Street, NVIDIA, or Kaggle
+- Not financial advice or trading recommendations
+- Generated code should be reviewed before execution
+- Past performance does not guarantee future results
+- Use at your own risk
+
+---
+
+## AUTHOR
+
+**Dhiraj S V**
+- GitHub: https://github.com/gitdhirajsv
+- More Projects: https://github.com/gitdhirajsv/Azalyst-ETF-Intelligence
+
+---
+
+*Built with passion for systematic research and AI-driven quantitative analysis.*
