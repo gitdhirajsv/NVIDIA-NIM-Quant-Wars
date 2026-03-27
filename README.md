@@ -86,7 +86,8 @@ An institutional-style quantitative research pipeline testing the coding capabil
 
 > **Note:** Only the top 3 models achieved positive R² (performing better than predicting the mean). Ollama and Hugging Face models are pending full evaluation.
 
-**[→ View Unified Interactive Dashboard](./unified_dashboard.html)**  
+**[→ 📊 LIVE: Unified Interactive Dashboard](https://htmlpreview.github.io/?https://github.com/gitdhirajsv/JaneStreet-Quant-Wars/blob/master/unified_dashboard.html)**  
+**[→ 📊 LIVE: NVIDIA Results Dashboard](https://htmlpreview.github.io/?https://github.com/gitdhirajsv/JaneStreet-Quant-Wars/blob/master/results_dashboard.html)**  
 **[→ NVIDIA Detailed Results](./RESULTS.md)**  
 **[→ Full Leaderboard CSV](./unified_leaderboard.csv)**
 
