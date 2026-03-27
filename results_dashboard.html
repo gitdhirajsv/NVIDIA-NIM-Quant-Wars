@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NVIDIA NIM Quant Wars — Results Dashboard</title>
-<meta name="description" content="NVIDIA NIM leaderboard and the current evaluated champion across the saved Jane Street Quant Wars reports.">
+<title>Jane Street Quant Wars — Research Dashboard</title>
+<meta name="description" content="Institutional-style research dashboard for Jane Street Quant Wars, presenting scored LLM forecasting results on Jane Street data.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <!-- No external script dependencies for core visualization -->
 <style>
@@ -263,14 +263,14 @@
 
 <!-- ============================================================ HERO -->
 <div class="hero">
-  <div class="hero-badge">Institutional Research Snapshot · March 2026</div>
-  <h1>NVIDIA NIM Quant Wars</h1>
-  <p>This report asks a practical quant question in plain English: if you let a large language model write a forecasting pipeline from scratch, does any of that code survive a standardized out-of-sample test on Jane Street data? In the scored book below, one small Mistral model did.</p>
+  <div class="hero-badge">Jane Street Quant Wars · Research Presentation</div>
+  <h1>Jane Street Quant Wars</h1>
+  <p>This dashboard is the research presentation layer of the project. It summarizes the strongest scored book currently saved in the repository and asks a serious quant question: can LLM-generated forecasting code produce real out-of-sample signal on Jane Street data?</p>
   <div class="hero-meta">
-    <div class="hero-stat"><div class="num">67</div><div class="label">Models Entered</div></div>
+    <div class="hero-stat"><div class="num">67</div><div class="label">Ranked Cohort</div></div>
     <div class="hero-stat"><div class="num">58</div><div class="label">Scored Outputs</div></div>
     <div class="hero-stat"><div class="num">3</div><div class="label">Positive Alpha Models</div></div>
-    <div class="hero-stat"><div class="num">100K</div><div class="label">Out-of-Sample Rows</div></div>
+    <div class="hero-stat"><div class="num">100K</div><div class="label">Evaluation Rows</div></div>
     <div class="hero-stat"><div class="num">0.7861</div><div class="label">Best Recorded MSE</div></div>
   </div>
 </div>
@@ -287,22 +287,22 @@
       <div>
         <h3 style="font-size: 16px; color: var(--text); margin-bottom: 12px; font-weight: 600;">Research Objective</h3>
         <p style="color: var(--muted); line-height: 1.7; font-size: 14px;">
-          We asked each model to produce runnable forecasting code, not a market essay. The evaluation then checks whether the generated pipeline can predict <strong style="color:var(--text);">responder_6</strong>, an anonymized forward-return target, better than a simple mean baseline on the same research sample.
+          This is not a style contest. Each model is asked to write runnable forecasting code, and the code is then judged under the same scoring harness. The core question is whether the generated pipeline can predict <strong style="color:var(--text);">responder_6</strong> better than a naive baseline on the same research sample.
         </p>
       </div>
       <div style="border-left: 1px solid var(--border); padding-left: 40px;">
         <h3 style="font-size: 16px; color: var(--text); margin-bottom: 12px; font-weight: 600;">Statistical Results</h3>
         <ul style="color: var(--muted); line-height: 1.7; font-size: 14px; list-style: none;">
           <li style="margin-bottom: 10px;">• <strong style="color:var(--silver);">Baseline view:</strong> predicting the mean leaves you around MSE 0.7880 and R² 0.00.</li>
-          <li style="margin-bottom: 10px;">• <strong style="color:var(--gold);">Best scored model:</strong> Mistral 7B reached MSE 0.7861 with positive R².</li>
-          <li>• <strong style="color:var(--green);">Plain-English takeaway:</strong> many models produced sensible-looking code, but only a very small group generated signal that actually improved on the baseline once everything was scored the same way.</li>
+          <li style="margin-bottom: 10px;">• <strong style="color:var(--gold);">Best scored model:</strong> a 7B Mistral entry reached MSE 0.7861 with positive R², beating much larger models.</li>
+          <li>• <strong style="color:var(--green);">Plain-English takeaway:</strong> many models produced code that looked sensible, but only a very small group generated signal that actually survived a consistent out-of-sample test.</li>
         </ul>
       </div>
     </div>
   </div>
 
   <!-- ── PODIUM ── -->
-  <div class="section-title">Top Performance Rankings <span>sorted by Mean Squared Error (MSE)</span></div>
+  <div class="section-title">Ranked Research Book <span>top scored models sorted by Mean Squared Error</span></div>
   <div class="card" style="margin-bottom:32px;">
     <div class="podium">
       <div class="podium-entry p2">
@@ -331,32 +331,32 @@
     <div class="metric">
       <div class="metric-label">Current Evaluated Leader</div>
       <div class="metric-value gold" style="font-size:16px;margin-top:4px;">mistralai/mistral-7b-instruct-v0.3</div>
-      <div class="metric-sub">Small model, clean code, best scored result in the current book</div>
+      <div class="metric-sub">The best current result in the repository came from a small, disciplined model</div>
     </div>
     <div class="metric">
       <div class="metric-label">Best Out-of-Sample MSE</div>
       <div class="metric-value green">0.7861</div>
-      <div class="metric-sub">RMSE 0.8866 · R² +0.0024</div>
+      <div class="metric-sub">The strongest saved score in the current research book</div>
     </div>
     <div class="metric">
       <div class="metric-label">Code Generation Stability</div>
       <div class="metric-value accent">93.9%</div>
-      <div class="metric-sub">63 of 67 models returned usable code before scoring</div>
+      <div class="metric-sub">Most models could write code; far fewer wrote code that scored well</div>
     </div>
     <div class="metric">
       <div class="metric-label">Scored Output Rate</div>
       <div class="metric-value purple">86.6%</div>
-      <div class="metric-sub">58 of 67 models produced notebook outputs the harness could score</div>
+      <div class="metric-sub">A meaningful fraction failed before becoming a reliable scored result</div>
     </div>
     <div class="metric">
       <div class="metric-label">Positive Alpha Count</div>
       <div class="metric-value green">3</div>
-      <div class="metric-sub">Only three scored entries beat the mean baseline</div>
+      <div class="metric-sub">Edge was rare, which is what a hard financial prediction task should look like</div>
     </div>
     <div class="metric">
       <div class="metric-label">Max Code Length</div>
       <div class="metric-value accent">79</div>
-      <div class="metric-sub">Longer code did not translate into better forecasting quality</div>
+      <div class="metric-sub">Verbose pipelines did not outperform concise ones on this book</div>
     </div>
   </div>
 
@@ -472,27 +472,27 @@
   <div class="section-title">Research Methodology</div>
   <div class="grid2">
     <div class="card">
-      <div class="card-title">How We Scored Each Model</div>
+      <div class="card-title">How The Book Was Scored</div>
       <p style="color:var(--muted);line-height:1.8;font-size:14px;">
-        Each model's generated notebook was parsed to extract its feature engineering approach.
-        We then ran a <strong style="color:var(--text);">standardized XGBoost evaluation</strong> on
-        <strong style="color:var(--text);">100,000 rows</strong> of real Jane Street production data
-        (partitioned parquet), with an 80/20 train/test split. Target variable: <strong style="color:var(--accent);">responder_6</strong>.
+        Each model notebook was treated as research output, not a demo. We extracted the generated logic,
+        preserved its feature-engineering intent, and then ran a <strong style="color:var(--text);">standardized XGBoost evaluation</strong>
+        on <strong style="color:var(--text);">100,000 rows</strong> of Jane Street data with a shared 80/20 train-test split.
+        The target remained <strong style="color:var(--accent);">responder_6</strong>, so every model was judged on the same forecasting task.
         <br><br>
-        XGBoost hyperparameters were <strong style="color:var(--text);">extracted from each model's code</strong>
-        (n_estimators, max_depth, learning_rate) via regex, so each model's own tuning choices were respected.
+        XGBoost hyperparameters were <strong style="color:var(--text);">extracted from the model's own code</strong>,
+        which means the ranking reflects both idea quality and tuning quality rather than just a single fixed template.
       </p>
     </div>
     <div class="card">
-      <div class="card-title">Why responder_6?</div>
+      <div class="card-title">Why This Target Matters</div>
       <p style="color:var(--muted);line-height:1.8;font-size:14px;">
-        The Jane Street competition targets <strong style="color:var(--accent);">responder_6</strong>,
-        a proprietary anonymized financial variable representing an 8-day forward return. Lower MSE = more
-        accurate predictions of future market movements.
+        The Jane Street competition centers on <strong style="color:var(--accent);">responder_6</strong>,
+        an anonymized forward-return target. Lower MSE means the model is making tighter forecasts on future market behaviour,
+        and positive R² means it is doing something more useful than simply predicting the average.
         <br><br>
-        The dataset contains <strong style="color:var(--text);">79 anonymized features</strong> (feature_00 – feature_78)
-        across multiple <strong style="color:var(--text);">date_id</strong> batches representing real trading days.
-        Feature engineering — especially the per-date top-quantile flag — is the key differentiator.
+        The dataset contains <strong style="color:var(--text);">79 anonymized features</strong> across multiple
+        <strong style="color:var(--text);">date_id</strong> slices. In practice, this makes the problem closer to real research work:
+        the difference is rarely raw model size alone, but whether the generated code discovers a feature transformation that actually survives scoring.
       </p>
     </div>
   </div>
