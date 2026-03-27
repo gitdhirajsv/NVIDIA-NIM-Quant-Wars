@@ -1,5 +1,15 @@
 # Jane Street Quant Wars
 
+![Python](https://img.shields.io/badge/Python-Research%20Workflow-3776AB?style=flat-square&logo=python&logoColor=white)
+![Polars](https://img.shields.io/badge/Data-Polars-1F2430?style=flat-square)
+![XGBoost](https://img.shields.io/badge/Model-XGBoost-EC6B23?style=flat-square)
+![scikit-learn](https://img.shields.io/badge/Metrics-scikit--learn-F7931E?style=flat-square)
+![LangChain](https://img.shields.io/badge/Orchestration-LangChain-0F172A?style=flat-square)
+![NVIDIA NIM](https://img.shields.io/badge/Inference-NVIDIA%20NIM-76B900?style=flat-square)
+![Ollama Cloud](https://img.shields.io/badge/Inference-Ollama%20Cloud-111827?style=flat-square)
+![Hugging Face](https://img.shields.io/badge/Inference-Hugging%20Face-F59E0B?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-22C55E?style=flat-square)
+
 Institutional-style research bench for testing whether large language models can write signal-bearing forecasting pipelines for the Jane Street Real-Time Market Data Forecasting problem.
 
 This repository is built like a quant research book, not a prompt gallery. Models are asked to produce code, their notebook outputs are preserved, and those notebooks are rescored under a common framework so we can compare actual forecasting quality instead of marketing quality.
@@ -23,20 +33,18 @@ The strongest scored result currently saved in this repository is:
 | Current evaluated leader | `mistralai/mistral-7b-instruct-v0.3` |
 | Venue | NVIDIA NIM |
 | Best MSE | `0.786110` |
-| R² | `+0.002356` |
+| R2 | `+0.002356` |
 | Interpretation | Positive out-of-sample alpha in the saved scoring book |
 
 Important caveat:
 
-The Ollama Cloud and Hugging Face notebook report folders are committed and preserved, but not every archived notebook has been fully rescored into the unified leaderboard yet. So the repo can honestly claim a current evaluated leader, not yet an uncontested final cross-platform champion.
+All currently available notebook report folders are now committed in-platform, including the NVIDIA archive plus the Hugging Face and Ollama report sets. The current repo-native scoring book covers the committed notebook reports themselves. Models that never produced a notebook report are not part of that ranked book.
 
-## Live Research Outputs
+## Main Research Presentation
 
-- NVIDIA research dashboard: [results_dashboard.html](https://htmlpreview.github.io/?https://github.com/gitdhirajsv/Jane-Street-Quant-Wars/blob/master/results_dashboard.html)
-- Unified dashboard: [unified_dashboard.html](https://htmlpreview.github.io/?https://github.com/gitdhirajsv/Jane-Street-Quant-Wars/blob/master/unified_dashboard.html)
-- NVIDIA results memo: [RESULTS.md](./RESULTS.md)
-- Saved evaluation note: [CLAUDE_EVALUATION.md](./CLAUDE_EVALUATION.md)
-- Ranked outputs: [leaderboard.csv](./leaderboard.csv) and [unified_leaderboard.csv](./unified_leaderboard.csv)
+- Main dashboard: [results_dashboard.html](https://htmlpreview.github.io/?https://github.com/gitdhirajsv/Jane-Street-Quant-Wars/blob/master/results_dashboard.html)
+
+This is the single presentation layer for the repo. It combines the saved NVIDIA NIM, Ollama Cloud, and Hugging Face model universe into one institutional-style report.
 
 ## What This Repository Does
 
@@ -45,6 +53,17 @@ The Ollama Cloud and Hugging Face notebook report folders are committed and pres
 - Re-scores generated notebooks under a shared evaluation harness
 - Compares models by out-of-sample error and signal quality, not by hype or parameter count
 - Preserves platform separation so the research trail stays inspectable
+
+## Software Stack
+
+- `Python` runs the generation scripts, notebook archive handling, and evaluation harness
+- `Polars` is the dataframe engine for fast Jane Street data loading and feature work
+- `XGBoost` is the primary tabular model family used inside the benchmarked forecasting pipelines
+- `scikit-learn` is used for train/test utilities and scoring metrics
+- `nbformat` preserves and reads model-generated notebook reports as the audit trail
+- `LangChain`, `langchain-nvidia-ai-endpoints`, `langchain-openai`, and `huggingface_hub` connect the repo to NVIDIA NIM, Ollama-compatible endpoints, and Hugging Face inference
+- `python-dotenv` manages local credential loading from `.env`
+- `Kaggle` is used for Jane Street competition dataset access when needed
 
 ## Research Architecture
 
@@ -74,6 +93,7 @@ JaneStreet-Quant-Wars/
 `-- platforms/
     |-- nvidia/
     |   |-- run_competition.py
+    |   |-- executed_notebooks/
     |   `-- generated_notebooks/
     |-- ollama/
     |   |-- run_competition.py
@@ -149,7 +169,7 @@ If local Jane Street parquet data is missing, the evaluator falls back to synthe
 ## Why The Results Matter
 
 - The current best scored model is a 7B Mistral, not the largest model in the field.
-- Only a small subset of scored entries produce positive R².
+- Only a small subset of scored entries produce positive R2.
 - The repo captures model behavior through the code they actually wrote, which makes the project useful for both benchmark ranking and feature-engineering pattern review.
 - The notebook folders are part of the research record, not clutter.
 

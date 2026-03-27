@@ -366,13 +366,13 @@
   <div class="hero-badge">Institutional Research Presentation - March 2026</div>
   <h1>Jane Street Quant Wars</h1>
   <p>
-    Full cross-platform attempt book for the project. This dashboard catalogs every model currently attempted in the repository across NVIDIA NIM, Ollama Cloud, and Hugging Face, then separates what is already scored from what is generated, gated, empty, or unavailable.
+    Full cross-platform notebook report book for the project. This dashboard catalogs every committed report notebook currently preserved in the repository across NVIDIA NIM, Ollama Cloud, and Hugging Face, then ranks those reports under one shared evaluation harness.
   </p>
   <div class="hero-meta">
-    <div class="hero-stat"><div class="num" id="hero-total">0</div><div class="label">Models Attempted</div></div>
-    <div class="hero-stat"><div class="num" id="hero-scored">0</div><div class="label">Scored Results</div></div>
-    <div class="hero-stat"><div class="num" id="hero-generated">0</div><div class="label">Generated Pending</div></div>
-    <div class="hero-stat"><div class="num" id="hero-unavailable">0</div><div class="label">Unavailable / Empty</div></div>
+    <div class="hero-stat"><div class="num" id="hero-total">0</div><div class="label">Notebook Reports</div></div>
+    <div class="hero-stat"><div class="num" id="hero-scored">0</div><div class="label">Scored Reports</div></div>
+    <div class="hero-stat"><div class="num" id="hero-generated">0</div><div class="label">Empty Notebooks</div></div>
+    <div class="hero-stat"><div class="num" id="hero-unavailable">0</div><div class="label">Research Venues</div></div>
     <div class="hero-stat"><div class="num" id="hero-alpha">0</div><div class="label">Positive Alpha</div></div>
     <div class="hero-stat"><div class="num" id="hero-best">-</div><div class="label">Best Saved MSE</div></div>
   </div>
@@ -386,11 +386,11 @@
         The project asks a direct quant-research question: if a model writes the forecasting code itself, does that code earn its place once the same out-of-sample scoring harness is applied to everybody?
       </div>
       <p class="body-copy">
-        The answer from the saved repository outputs is mixed. The project now contains a full cross-platform attempt universe, but only a subset has been fully rescored. NVIDIA NIM currently dominates the scored book because those outputs were run through the evaluation harness end to end, while Ollama and Hugging Face currently appear as generated or failed entries in the saved repository history.
+        The answer from the committed repository reports is clearer now. The repo contains one rescored cross-platform report book: 63 NVIDIA reports, 11 Ollama reports, and 6 Hugging Face reports, all evaluated under the same harness, plus a small set of empty NVIDIA notebooks that are shown explicitly instead of being hidden.
       </p>
       <br>
       <p class="body-copy">
-        That means this page is not pretending every row is equally mature. It is deliberately transparent: scored models, generated notebooks awaiting rescoring, gated failures, and empty outputs are all shown together so the project presentation matches the actual repository record.
+        That makes this page a report surface, not a marketing surface. It is deliberately transparent about what was scored, what was empty, which venue produced the strongest models, and how often compact code still held up out of sample once the notebooks were rescored inside this repo.
       </p>
     </div>
 
@@ -402,7 +402,7 @@
         <span class="pill ok">Scored</span>
       </div>
       <p class="winner-copy" id="winner-copy">
-        The current leader is taken from the saved scored results, not from unscored generated notebooks.
+        The current leader is taken from the rescored notebook reports committed in this repository.
       </p>
       <div class="metric-grid" style="margin-top: 18px;">
         <div class="metric">
@@ -423,14 +423,14 @@
         <div class="metric">
           <div class="metric-label">Platform</div>
           <div class="metric-value" id="winner-platform">-</div>
-          <div class="metric-note">Current scoring depth is strongest on NVIDIA NIM outputs.</div>
+          <div class="metric-note">The leading report venue in the current scoring book.</div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="section-title">Platform Coverage</div>
-  <div class="section-subtitle">Every attempted model currently saved in the repository, broken down by venue and maturity of result.</div>
+  <div class="section-subtitle">Every committed notebook report currently saved in the repository, broken down by venue and evaluation outcome.</div>
   <div class="grid3" id="platform-cards"></div>
 
   <div class="card" style="margin-bottom: 28px;">
@@ -456,15 +456,15 @@
   </div>
 
   <div class="card">
-    <div class="section-title">Full Model Universe</div>
+    <div class="section-title">Full Report Book</div>
     <div class="section-subtitle">
-      This table includes all attempted models from NVIDIA NIM, Ollama Cloud, and Hugging Face that are currently represented in the saved cross-platform leaderboard file.
+      This table includes every committed cross-platform notebook report currently represented in the rescored leaderboard file.
     </div>
     <div class="filter-row">
       <button class="filter-btn active" data-filter="all">All Platforms</button>
-      <button class="filter-btn" data-filter="NVIDIA NIM">NVIDIA NIM</button>
-      <button class="filter-btn" data-filter="Ollama Cloud">Ollama Cloud</button>
-      <button class="filter-btn" data-filter="Hugging Face">Hugging Face</button>
+      <button class="filter-btn" data-filter="nvidia">NVIDIA NIM</button>
+      <button class="filter-btn" data-filter="ollama">Ollama Cloud</button>
+      <button class="filter-btn" data-filter="huggingface">Hugging Face</button>
     </div>
     <div class="table-wrap">
       <table>
@@ -495,96 +495,87 @@
 </div>
 
 <script>
-const CSV_DATA = String.raw`rank,model,platform,status,mse,rmse,r2,features,code_lines,has_feature_engineering,has_xgboost,has_polars,error
-1,mistralai/mistral-7b-instruct-v0.3,NVIDIA NIM,OK,0.78611,0.886628,0.002356,80,15,True,True,True,
-2,yentinglin/llama-3-taiwan-70b-instruct,NVIDIA NIM,OK,0.786624,0.886918,0.001704,80,22,True,True,True,
-3,nvidia/nemotron-4-mini-hindi-4b-instruct,NVIDIA NIM,OK,0.787319,0.88731,0.000821,80,38,True,True,True,
-4,moonshotai/kimi-k2-instruct,NVIDIA NIM,OK,0.789284,0.888417,-0.001673,80,36,True,True,True,
-5,institute-of-science-tokyo/llama-3.1-swallow-8b-instruct-v0.1,NVIDIA NIM,OK,0.790381,0.889034,-0.003065,80,20,True,True,True,
-6,moonshotai/kimi-k2-instruct-0905,NVIDIA NIM,OK,0.792461,0.890203,-0.005705,80,35,True,True,True,
-7,igenius/italia_10b_instruct_16k,NVIDIA NIM,OK,0.79395,0.891039,-0.007594,80,11,True,True,True,
-8,meta/llama3-8b-instruct,NVIDIA NIM,OK,0.79395,0.891039,-0.007594,80,8,True,True,True,
-9,microsoft/phi-3-medium-128k-instruct,NVIDIA NIM,OK,0.79395,0.891039,-0.007594,79,61,True,True,True,
-10,rakuten/rakutenai-7b-instruct,NVIDIA NIM,OK,0.79395,0.891039,-0.007594,79,3,False,False,True,
-11,speakleash/bielik-11b-v2.3-instruct,NVIDIA NIM,OK,0.79395,0.891039,-0.007594,79,49,True,True,True,
-12,mistralai/mistral-large-3-675b-instruct-2512,NVIDIA NIM,OK,0.794958,0.891604,-0.008874,80,40,True,True,True,
-13,qwen/qwen2.5-7b-instruct,NVIDIA NIM,OK,0.796279,0.892345,-0.01055,80,25,True,True,True,
-14,qwen/qwen3-next-80b-a3b-instruct,NVIDIA NIM,OK,0.796279,0.892345,-0.01055,80,54,True,True,True,
-15,abacusai/dracarys-llama-3.1-70b-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,18,True,True,True,
-16,baichuan-inc/baichuan2-13b-chat,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,43,True,True,True,
-17,gotocompany/gemma-2-9b-cpt-sahabatai-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,13,True,True,True,
-18,institute-of-science-tokyo/llama-3.1-swallow-70b-instruct-v0.1,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,37,True,True,True,
-19,marin/marin-8b-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,42,True,True,True,
-20,mediatek/breeze-7b-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,29,True,True,True,
-21,meta/llama-3.1-405b-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,29,True,True,True,
-22,meta/llama-3.1-70b-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,22,True,True,True,
-23,meta/llama-3.3-70b-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,28,True,True,True,
-24,meta/llama-4-maverick-17b-128e-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,33,True,True,True,
-25,meta/llama3-70b-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,20,True,True,True,
-26,microsoft/phi-3-medium-4k-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,40,True,True,True,
-27,microsoft/phi-3-mini-128k-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,51,True,True,True,
-28,microsoft/phi-3-mini-4k-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,43,True,True,True,
-29,microsoft/phi-3-small-128k-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,32,True,True,True,
-30,microsoft/phi-3.5-mini-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,35,True,True,True,
-31,microsoft/phi-4-multimodal-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,35,True,True,True,
-32,mistralai/ministral-14b-instruct-2512,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,76,True,True,True,
-33,mistralai/mistral-7b-instruct-v0.2,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,28,True,True,True,
-34,mistralai/mistral-medium-3-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,36,True,True,True,
-35,mistralai/mistral-small-24b-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,35,True,True,True,
-36,mistralai/mistral-small-3.1-24b-instruct-2503,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,34,True,True,True,
-37,mistralai/mixtral-8x22b-instruct-v0.1,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,25,True,True,True,
-38,mistralai/mixtral-8x7b-instruct-v0.1,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,45,True,True,True,
-39,nvidia/llama-3.1-nemotron-nano-8b-v1,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,38,True,True,True,
-40,nvidia/llama-3.1-nemotron-nano-vl-8b-v1,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,39,True,True,True,
-41,nvidia/llama-3.3-nemotron-super-49b-v1.5,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,12,True,True,True,
-42,nvidia/llama3-chatqa-1.5-8b,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,17,True,True,True,
-43,nvidia/nemotron-mini-4b-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,14,True,True,True,
-44,qwen/qwen2-7b-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,47,True,True,True,
-45,qwen/qwen2.5-coder-32b-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,35,True,True,True,
-46,qwen/qwen2.5-coder-7b-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,32,True,True,True,
-47,rakuten/rakutenai-7b-chat,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,41,True,True,True,
-48,thudm/chatglm3-6b,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,49,True,True,True,
-49,tiiuae/falcon3-7b-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,33,True,True,True,
-50,upstage/solar-10.7b-instruct,NVIDIA NIM,OK,0.796385,0.892404,-0.010685,80,16,True,True,True,
-51,nvidia/llama-3.3-nemotron-super-49b-v1,NVIDIA NIM,OK,0.797974,0.893294,-0.012701,80,45,True,True,True,
-52,meta/llama-3.1-8b-instruct,NVIDIA NIM,OK,0.798775,0.893742,-0.013717,80,51,True,True,True,
-53,meta/llama-3.2-1b-instruct,NVIDIA NIM,OK,0.805049,0.897245,-0.02168,80,26,True,True,True,
-54,microsoft/phi-3-small-8k-instruct,NVIDIA NIM,OK,0.805049,0.897245,-0.02168,80,22,True,True,False,
-55,mistralai/mistral-nemotron,NVIDIA NIM,OK,0.80612,0.897842,-0.023039,80,79,True,True,True,
-56,tokyotech-llm/llama-3-swallow-70b-instruct-v0.1,NVIDIA NIM,OK,0.80612,0.897842,-0.023039,80,17,True,True,True,
-57,utter-project/eurollm-9b-instruct,NVIDIA NIM,OK,0.80612,0.897842,-0.023039,80,32,True,True,True,
-58,meta/llama-3.2-3b-instruct,NVIDIA NIM,OK,0.817354,0.904077,-0.037297,80,31,True,True,True,
--,bytedance/seed-oss-36b-instruct,NVIDIA NIM,EMPTY_NOTEBOOK,,,,0,0,False,False,False,Empty notebook
--,nvidia/llama-3.1-nemotron-ultra-253b-v1,NVIDIA NIM,EMPTY_NOTEBOOK,,,,0,0,False,False,False,Empty notebook
--,nvidia/nemotron-3-nano-30b-a3b,NVIDIA NIM,EMPTY_NOTEBOOK,,,,0,0,False,False,False,Empty notebook
--,nvidia/nemotron-3-super-120b-a12b,NVIDIA NIM,EMPTY_NOTEBOOK,,,,0,0,False,False,False,Empty notebook
--,nvidia/nvidia-nemotron-nano-9b-v2,NVIDIA NIM,EMPTY_NOTEBOOK,,,,0,0,False,False,False,Empty notebook
--,qwen3-next:80b,Ollama Cloud,GENERATED,,,,0,0,False,False,False,Code generated - needs evaluation
--,deepseek-v3.2,Ollama Cloud,GENERATED,,,,0,0,False,False,False,Code generated - needs evaluation
--,gemma3:27b,Ollama Cloud,GENERATED,,,,0,0,False,False,False,Code generated - needs evaluation
--,gemma3:12b,Ollama Cloud,GENERATED,,,,0,0,False,False,False,Code generated - needs evaluation
--,glm-5,Ollama Cloud,GENERATED,,,,0,0,False,False,False,Code generated - needs evaluation
--,glm-4.6,Ollama Cloud,GENERATED,,,,0,0,False,False,False,Code generated - needs evaluation
--,kimi-k2-thinking,Ollama Cloud,GENERATED,,,,0,0,False,False,False,Code generated - needs evaluation
--,mistral-large-3:675b,Ollama Cloud,GENERATED,,,,0,0,False,False,False,Code generated - needs evaluation
--,ministral-3:14b,Ollama Cloud,GENERATED,,,,0,0,False,False,False,Code generated - needs evaluation
--,ministral-3:8b,Ollama Cloud,GENERATED,,,,0,0,False,False,False,Code generated - needs evaluation
--,nemotron-3-nano:30b,Ollama Cloud,GENERATED,,,,0,0,False,False,False,Code generated - needs evaluation
--,qwen3-next:30b,Ollama Cloud,FAILED,,,,0,0,False,False,False,Model not found (404)
--,deepseek-v3,Ollama Cloud,FAILED,,,,0,0,False,False,False,Model not found (404)
--,Qwen/Qwen2.5-Coder-32B-Instruct,Hugging Face,GENERATED,,,,0,0,False,False,False,Code generated - needs evaluation
--,Qwen/Qwen2.5-72B-Instruct,Hugging Face,GENERATED,,,,0,0,False,False,False,Code generated - needs evaluation
--,meta-llama/Llama-3.3-70B-Instruct,Hugging Face,GENERATED,,,,0,0,False,False,False,Code generated - needs evaluation
--,meta-llama/Llama-3.1-8B-Instruct,Hugging Face,GENERATED,,,,0,0,False,False,False,Code generated - needs evaluation
--,deepseek-ai/DeepSeek-V3,Hugging Face,GENERATED,,,,0,0,False,False,False,Code generated - needs evaluation
--,deepseek-ai/DeepSeek-R1-Distill-Qwen-32B,Hugging Face,GENERATED,,,,0,0,False,False,False,Code generated - needs evaluation
--,mistralai/Mistral-7B-Instruct-v0.3,Hugging Face,FAILED,,,,0,0,False,False,False,Access denied (gated)
--,mistralai/Mixtral-8x7B-Instruct-v0.1,Hugging Face,FAILED,,,,0,0,False,False,False,Access denied (gated)
--,google/gemma-2-27b-it,Hugging Face,FAILED,,,,0,0,False,False,False,Access denied (gated)
--,google/gemma-2-9b-it,Hugging Face,FAILED,,,,0,0,False,False,False,Access denied (gated)
--,microsoft/Phi-3.5-Mini-Instruct,Hugging Face,FAILED,,,,0,0,False,False,False,Access denied (gated)
--,NousResearch/Hermes-3-Llama-3.1-70B,Hugging Face,FAILED,,,,0,0,False,False,False,Access denied (gated)
--,01-ai/Yi-1.5-34B-Chat,Hugging Face,FAILED,,,,0,0,False,False,False,Access denied (gated)`;
+const CSV_DATA = String.raw`rank,platform,model,status,mse,rmse,r2,feature_count,code_lines,has_feature_engineering,has_xgboost,has_polars,source_notebook,error
+1,nvidia,mistralai_mistral-7b-instruct-v0.3,OK,0.78611,0.886628,0.002356,80,15,True,True,True,platforms\nvidia\generated_notebooks\mistralai_mistral-7b-instruct-v0.3.ipynb,
+2,nvidia,yentinglin_llama-3-taiwan-70b-instruct,OK,0.786624,0.886918,0.001704,80,22,True,True,True,platforms\nvidia\generated_notebooks\yentinglin_llama-3-taiwan-70b-instruct.ipynb,
+3,ollama,nemotron_3_nano_30b,OK,0.786884,0.887065,0.001373,80,34,True,True,True,platforms\ollama\generated_notebooks\nemotron_3_nano_30b.ipynb,
+4,nvidia,nvidia_nemotron-4-mini-hindi-4b-instruct,OK,0.787319,0.88731,0.000821,80,38,True,True,True,platforms\nvidia\generated_notebooks\nvidia_nemotron-4-mini-hindi-4b-instruct.ipynb,
+5,nvidia,moonshotai_kimi-k2-instruct,OK,0.789284,0.888417,-0.001673,80,36,True,True,True,platforms\nvidia\generated_notebooks\moonshotai_kimi-k2-instruct.ipynb,
+6,nvidia,institute-of-science-tokyo_llama-3.1-swallow-8b-instruct-v0.1,OK,0.790381,0.889034,-0.003065,80,20,True,True,True,platforms\nvidia\generated_notebooks\institute-of-science-tokyo_llama-3.1-swallow-8b-instruct-v0.1.ipynb,
+7,ollama,kimi_k2_thinking,OK,0.790381,0.889034,-0.003065,80,23,True,True,True,platforms\ollama\generated_notebooks\kimi_k2_thinking.ipynb,
+8,ollama,mistral_large_3_675b,OK,0.790381,0.889034,-0.003065,80,42,True,True,True,platforms\ollama\generated_notebooks\mistral_large_3_675b.ipynb,
+9,huggingface,meta_llama_Llama_3_1_8B_Instruct,OK,0.790381,0.889034,-0.003065,80,31,True,True,True,platforms\huggingface\generated_notebooks\meta_llama_Llama_3_1_8B_Instruct.ipynb,
+10,nvidia,moonshotai_kimi-k2-instruct-0905,OK,0.792461,0.890203,-0.005705,80,35,True,True,True,platforms\nvidia\generated_notebooks\moonshotai_kimi-k2-instruct-0905.ipynb,
+11,nvidia,igenius_italia_10b_instruct_16k,OK,0.79395,0.891039,-0.007594,80,11,True,True,True,platforms\nvidia\generated_notebooks\igenius_italia_10b_instruct_16k.ipynb,
+12,nvidia,meta_llama3-8b-instruct,OK,0.79395,0.891039,-0.007594,80,8,True,True,True,platforms\nvidia\generated_notebooks\meta_llama3-8b-instruct.ipynb,
+13,nvidia,microsoft_phi-3-medium-128k-instruct,OK,0.79395,0.891039,-0.007594,79,61,True,True,True,platforms\nvidia\generated_notebooks\microsoft_phi-3-medium-128k-instruct.ipynb,
+14,nvidia,rakuten_rakutenai-7b-instruct,OK,0.79395,0.891039,-0.007594,79,3,False,False,True,platforms\nvidia\generated_notebooks\rakuten_rakutenai-7b-instruct.ipynb,
+15,nvidia,speakleash_bielik-11b-v2.3-instruct,OK,0.79395,0.891039,-0.007594,79,49,True,True,True,platforms\nvidia\generated_notebooks\speakleash_bielik-11b-v2.3-instruct.ipynb,
+16,nvidia,mistralai_mistral-large-3-675b-instruct-2512,OK,0.794958,0.891604,-0.008874,80,40,True,True,True,platforms\nvidia\generated_notebooks\mistralai_mistral-large-3-675b-instruct-2512.ipynb,
+17,ollama,ministral_3_14b,OK,0.794958,0.891604,-0.008874,80,64,True,True,True,platforms\ollama\generated_notebooks\ministral_3_14b.ipynb,
+18,ollama,ministral_3_8b,OK,0.794958,0.891604,-0.008874,80,52,True,True,True,platforms\ollama\generated_notebooks\ministral_3_8b.ipynb,
+19,nvidia,qwen_qwen2.5-7b-instruct,OK,0.796279,0.892345,-0.01055,80,25,True,True,True,platforms\nvidia\generated_notebooks\qwen_qwen2.5-7b-instruct.ipynb,
+20,nvidia,qwen_qwen3-next-80b-a3b-instruct,OK,0.796279,0.892345,-0.01055,80,54,True,True,True,platforms\nvidia\generated_notebooks\qwen_qwen3-next-80b-a3b-instruct.ipynb,
+21,nvidia,abacusai_dracarys-llama-3.1-70b-instruct,OK,0.796385,0.892404,-0.010685,80,18,True,True,True,platforms\nvidia\generated_notebooks\abacusai_dracarys-llama-3.1-70b-instruct.ipynb,
+22,nvidia,baichuan-inc_baichuan2-13b-chat,OK,0.796385,0.892404,-0.010685,80,43,True,True,True,platforms\nvidia\generated_notebooks\baichuan-inc_baichuan2-13b-chat.ipynb,
+23,nvidia,gotocompany_gemma-2-9b-cpt-sahabatai-instruct,OK,0.796385,0.892404,-0.010685,80,13,True,True,True,platforms\nvidia\generated_notebooks\gotocompany_gemma-2-9b-cpt-sahabatai-instruct.ipynb,
+24,nvidia,institute-of-science-tokyo_llama-3.1-swallow-70b-instruct-v0.1,OK,0.796385,0.892404,-0.010685,80,37,True,True,True,platforms\nvidia\generated_notebooks\institute-of-science-tokyo_llama-3.1-swallow-70b-instruct-v0.1.ipynb,
+25,nvidia,marin_marin-8b-instruct,OK,0.796385,0.892404,-0.010685,80,42,True,True,True,platforms\nvidia\generated_notebooks\marin_marin-8b-instruct.ipynb,
+26,nvidia,mediatek_breeze-7b-instruct,OK,0.796385,0.892404,-0.010685,80,29,True,True,True,platforms\nvidia\generated_notebooks\mediatek_breeze-7b-instruct.ipynb,
+27,nvidia,meta_llama-3.1-405b-instruct,OK,0.796385,0.892404,-0.010685,80,29,True,True,True,platforms\nvidia\generated_notebooks\meta_llama-3.1-405b-instruct.ipynb,
+28,nvidia,meta_llama-3.1-70b-instruct,OK,0.796385,0.892404,-0.010685,80,22,True,True,True,platforms\nvidia\generated_notebooks\meta_llama-3.1-70b-instruct.ipynb,
+29,nvidia,meta_llama-3.3-70b-instruct,OK,0.796385,0.892404,-0.010685,80,28,True,True,True,platforms\nvidia\generated_notebooks\meta_llama-3.3-70b-instruct.ipynb,
+30,nvidia,meta_llama-4-maverick-17b-128e-instruct,OK,0.796385,0.892404,-0.010685,80,33,True,True,True,platforms\nvidia\generated_notebooks\meta_llama-4-maverick-17b-128e-instruct.ipynb,
+31,nvidia,meta_llama3-70b-instruct,OK,0.796385,0.892404,-0.010685,80,20,True,True,True,platforms\nvidia\generated_notebooks\meta_llama3-70b-instruct.ipynb,
+32,nvidia,microsoft_phi-3-medium-4k-instruct,OK,0.796385,0.892404,-0.010685,80,40,True,True,True,platforms\nvidia\generated_notebooks\microsoft_phi-3-medium-4k-instruct.ipynb,
+33,nvidia,microsoft_phi-3-mini-128k-instruct,OK,0.796385,0.892404,-0.010685,80,51,True,True,True,platforms\nvidia\generated_notebooks\microsoft_phi-3-mini-128k-instruct.ipynb,
+34,nvidia,microsoft_phi-3-mini-4k-instruct,OK,0.796385,0.892404,-0.010685,80,43,True,True,True,platforms\nvidia\generated_notebooks\microsoft_phi-3-mini-4k-instruct.ipynb,
+35,nvidia,microsoft_phi-3-small-128k-instruct,OK,0.796385,0.892404,-0.010685,80,32,True,True,True,platforms\nvidia\generated_notebooks\microsoft_phi-3-small-128k-instruct.ipynb,
+36,nvidia,microsoft_phi-3.5-mini-instruct,OK,0.796385,0.892404,-0.010685,80,35,True,True,True,platforms\nvidia\generated_notebooks\microsoft_phi-3.5-mini-instruct.ipynb,
+37,nvidia,microsoft_phi-4-multimodal-instruct,OK,0.796385,0.892404,-0.010685,80,35,True,True,True,platforms\nvidia\generated_notebooks\microsoft_phi-4-multimodal-instruct.ipynb,
+38,nvidia,mistralai_ministral-14b-instruct-2512,OK,0.796385,0.892404,-0.010685,80,76,True,True,True,platforms\nvidia\generated_notebooks\mistralai_ministral-14b-instruct-2512.ipynb,
+39,nvidia,mistralai_mistral-7b-instruct-v0.2,OK,0.796385,0.892404,-0.010685,80,28,True,True,True,platforms\nvidia\generated_notebooks\mistralai_mistral-7b-instruct-v0.2.ipynb,
+40,nvidia,mistralai_mistral-medium-3-instruct,OK,0.796385,0.892404,-0.010685,80,36,True,True,True,platforms\nvidia\generated_notebooks\mistralai_mistral-medium-3-instruct.ipynb,
+41,nvidia,mistralai_mistral-small-24b-instruct,OK,0.796385,0.892404,-0.010685,80,35,True,True,True,platforms\nvidia\generated_notebooks\mistralai_mistral-small-24b-instruct.ipynb,
+42,nvidia,mistralai_mistral-small-3.1-24b-instruct-2503,OK,0.796385,0.892404,-0.010685,80,34,True,True,True,platforms\nvidia\generated_notebooks\mistralai_mistral-small-3.1-24b-instruct-2503.ipynb,
+43,nvidia,mistralai_mixtral-8x22b-instruct-v0.1,OK,0.796385,0.892404,-0.010685,80,25,True,True,True,platforms\nvidia\generated_notebooks\mistralai_mixtral-8x22b-instruct-v0.1.ipynb,
+44,nvidia,mistralai_mixtral-8x7b-instruct-v0.1,OK,0.796385,0.892404,-0.010685,80,45,True,True,True,platforms\nvidia\generated_notebooks\mistralai_mixtral-8x7b-instruct-v0.1.ipynb,
+45,nvidia,nvidia_llama-3.1-nemotron-nano-8b-v1,OK,0.796385,0.892404,-0.010685,80,38,True,True,True,platforms\nvidia\generated_notebooks\nvidia_llama-3.1-nemotron-nano-8b-v1.ipynb,
+46,nvidia,nvidia_llama-3.1-nemotron-nano-vl-8b-v1,OK,0.796385,0.892404,-0.010685,80,39,True,True,True,platforms\nvidia\generated_notebooks\nvidia_llama-3.1-nemotron-nano-vl-8b-v1.ipynb,
+47,nvidia,nvidia_llama-3.3-nemotron-super-49b-v1.5,OK,0.796385,0.892404,-0.010685,80,12,True,True,True,platforms\nvidia\generated_notebooks\nvidia_llama-3.3-nemotron-super-49b-v1.5.ipynb,
+48,nvidia,nvidia_llama3-chatqa-1.5-8b,OK,0.796385,0.892404,-0.010685,80,17,True,True,True,platforms\nvidia\generated_notebooks\nvidia_llama3-chatqa-1.5-8b.ipynb,
+49,nvidia,nvidia_nemotron-mini-4b-instruct,OK,0.796385,0.892404,-0.010685,80,14,True,True,True,platforms\nvidia\generated_notebooks\nvidia_nemotron-mini-4b-instruct.ipynb,
+50,nvidia,qwen_qwen2-7b-instruct,OK,0.796385,0.892404,-0.010685,80,47,True,True,True,platforms\nvidia\generated_notebooks\qwen_qwen2-7b-instruct.ipynb,
+51,nvidia,qwen_qwen2.5-coder-32b-instruct,OK,0.796385,0.892404,-0.010685,80,35,True,True,True,platforms\nvidia\generated_notebooks\qwen_qwen2.5-coder-32b-instruct.ipynb,
+52,nvidia,qwen_qwen2.5-coder-7b-instruct,OK,0.796385,0.892404,-0.010685,80,32,True,True,True,platforms\nvidia\generated_notebooks\qwen_qwen2.5-coder-7b-instruct.ipynb,
+53,nvidia,rakuten_rakutenai-7b-chat,OK,0.796385,0.892404,-0.010685,80,41,True,True,True,platforms\nvidia\generated_notebooks\rakuten_rakutenai-7b-chat.ipynb,
+54,nvidia,thudm_chatglm3-6b,OK,0.796385,0.892404,-0.010685,80,49,True,True,True,platforms\nvidia\generated_notebooks\thudm_chatglm3-6b.ipynb,
+55,nvidia,tiiuae_falcon3-7b-instruct,OK,0.796385,0.892404,-0.010685,80,33,True,True,True,platforms\nvidia\generated_notebooks\tiiuae_falcon3-7b-instruct.ipynb,
+56,nvidia,upstage_solar-10.7b-instruct,OK,0.796385,0.892404,-0.010685,80,16,True,True,True,platforms\nvidia\generated_notebooks\upstage_solar-10.7b-instruct.ipynb,
+57,ollama,deepseek_v3.2,OK,0.796385,0.892404,-0.010685,80,30,True,True,True,platforms\ollama\generated_notebooks\deepseek_v3.2.ipynb,
+58,ollama,gemma3_12b,OK,0.796385,0.892404,-0.010685,80,26,True,True,True,platforms\ollama\generated_notebooks\gemma3_12b.ipynb,
+59,ollama,gemma3_27b,OK,0.796385,0.892404,-0.010685,80,43,True,True,True,platforms\ollama\generated_notebooks\gemma3_27b.ipynb,
+60,ollama,glm_4.6,OK,0.796385,0.892404,-0.010685,80,114,True,True,True,platforms\ollama\generated_notebooks\glm_4.6.ipynb,
+61,ollama,qwen3_next_80b,OK,0.796385,0.892404,-0.010685,80,9,True,True,True,platforms\ollama\generated_notebooks\qwen3_next_80b.ipynb,
+62,huggingface,deepseek_ai_DeepSeek_R1_Distill_Qwen_32B,OK,0.796385,0.892404,-0.010685,80,52,True,True,True,platforms\huggingface\generated_notebooks\deepseek_ai_DeepSeek_R1_Distill_Qwen_32B.ipynb,
+63,huggingface,deepseek_ai_DeepSeek_V3,OK,0.796385,0.892404,-0.010685,80,20,True,True,True,platforms\huggingface\generated_notebooks\deepseek_ai_DeepSeek_V3.ipynb,
+64,huggingface,Qwen_Qwen2_5_72B_Instruct,OK,0.796385,0.892404,-0.010685,80,27,True,True,True,platforms\huggingface\generated_notebooks\Qwen_Qwen2_5_72B_Instruct.ipynb,
+65,huggingface,Qwen_Qwen2_5_Coder_32B_Instruct,OK,0.796385,0.892404,-0.010685,80,37,True,True,True,platforms\huggingface\generated_notebooks\Qwen_Qwen2_5_Coder_32B_Instruct.ipynb,
+66,nvidia,nvidia_llama-3.3-nemotron-super-49b-v1,OK,0.797974,0.893294,-0.012701,80,45,True,True,True,platforms\nvidia\generated_notebooks\nvidia_llama-3.3-nemotron-super-49b-v1.ipynb,
+67,nvidia,meta_llama-3.1-8b-instruct,OK,0.798775,0.893742,-0.013717,80,51,True,True,True,platforms\nvidia\generated_notebooks\meta_llama-3.1-8b-instruct.ipynb,
+68,huggingface,meta_llama_Llama_3_3_70B_Instruct,OK,0.798775,0.893742,-0.013717,80,20,True,True,True,platforms\huggingface\generated_notebooks\meta_llama_Llama_3_3_70B_Instruct.ipynb,
+69,ollama,glm_5,OK,0.800683,0.894809,-0.01614,80,100,True,True,True,platforms\ollama\generated_notebooks\glm_5.ipynb,
+70,nvidia,meta_llama-3.2-1b-instruct,OK,0.805049,0.897245,-0.02168,80,26,True,True,True,platforms\nvidia\generated_notebooks\meta_llama-3.2-1b-instruct.ipynb,
+71,nvidia,microsoft_phi-3-small-8k-instruct,OK,0.805049,0.897245,-0.02168,80,22,True,True,False,platforms\nvidia\generated_notebooks\microsoft_phi-3-small-8k-instruct.ipynb,
+72,nvidia,mistralai_mistral-nemotron,OK,0.80612,0.897842,-0.023039,80,79,True,True,True,platforms\nvidia\generated_notebooks\mistralai_mistral-nemotron.ipynb,
+73,nvidia,tokyotech-llm_llama-3-swallow-70b-instruct-v0.1,OK,0.80612,0.897842,-0.023039,80,17,True,True,True,platforms\nvidia\generated_notebooks\tokyotech-llm_llama-3-swallow-70b-instruct-v0.1.ipynb,
+74,nvidia,utter-project_eurollm-9b-instruct,OK,0.80612,0.897842,-0.023039,80,32,True,True,True,platforms\nvidia\generated_notebooks\utter-project_eurollm-9b-instruct.ipynb,
+75,nvidia,meta_llama-3.2-3b-instruct,OK,0.817354,0.904077,-0.037297,80,31,True,True,True,platforms\nvidia\generated_notebooks\meta_llama-3.2-3b-instruct.ipynb,
+-,nvidia,bytedance_seed-oss-36b-instruct,EMPTY_NOTEBOOK,,,,0,0,False,False,False,platforms\nvidia\generated_notebooks\bytedance_seed-oss-36b-instruct.ipynb,Empty notebook
+-,nvidia,nvidia_llama-3.1-nemotron-ultra-253b-v1,EMPTY_NOTEBOOK,,,,0,0,False,False,False,platforms\nvidia\generated_notebooks\nvidia_llama-3.1-nemotron-ultra-253b-v1.ipynb,Empty notebook
+-,nvidia,nvidia_nemotron-3-nano-30b-a3b,EMPTY_NOTEBOOK,,,,0,0,False,False,False,platforms\nvidia\generated_notebooks\nvidia_nemotron-3-nano-30b-a3b.ipynb,Empty notebook
+-,nvidia,nvidia_nemotron-3-super-120b-a12b,EMPTY_NOTEBOOK,,,,0,0,False,False,False,platforms\nvidia\generated_notebooks\nvidia_nemotron-3-super-120b-a12b.ipynb,Empty notebook
+-,nvidia,nvidia_nvidia-nemotron-nano-9b-v2,EMPTY_NOTEBOOK,,,,0,0,False,False,False,platforms\nvidia\generated_notebooks\nvidia_nvidia-nemotron-nano-9b-v2.ipynb,Empty notebook`;
 
 function parseCsv(raw) {
   const lines = raw.trim().split(/\r?\n/);
@@ -605,36 +596,43 @@ function parseCsv(raw) {
 
 const rows = parseCsv(CSV_DATA);
 const scored = rows.filter((row) => row.status === "OK" && row.mseNum !== null).sort((a, b) => a.mseNum - b.mseNum);
-const generated = rows.filter((row) => row.status === "GENERATED");
-const unavailable = rows.filter((row) => ["FAILED", "EMPTY_NOTEBOOK"].includes(row.status));
+const emptyNotebooks = rows.filter((row) => row.status === "EMPTY_NOTEBOOK");
 const positiveAlpha = scored.filter((row) => row.r2Num > 0);
 const currentLeader = scored[0];
+const venueCount = new Set(rows.map((row) => row.platform)).size;
 
 function platformClass(platform) {
-  if (platform === "NVIDIA NIM") return "nvidia";
-  if (platform === "Ollama Cloud") return "ollama";
+  const key = (platform || "").toLowerCase();
+  if (key === "nvidia") return "nvidia";
+  if (key === "ollama") return "ollama";
   return "hf";
+}
+
+function platformLabel(platform) {
+  const key = (platform || "").toLowerCase();
+  if (key === "nvidia") return "NVIDIA NIM";
+  if (key === "ollama") return "Ollama Cloud";
+  if (key === "huggingface") return "Hugging Face";
+  return platform;
 }
 
 function statusClass(status) {
   if (status === "OK") return "status-ok";
-  if (status === "GENERATED") return "status-generated";
   if (status === "EMPTY_NOTEBOOK") return "status-empty";
   return "status-failed";
 }
 
 function statusLabel(status) {
   if (status === "OK") return "Scored";
-  if (status === "GENERATED") return "Generated";
   if (status === "EMPTY_NOTEBOOK") return "Empty";
-  return "Failed";
+  return status || "Unknown";
 }
 
 function renderHero() {
   document.getElementById("hero-total").textContent = rows.length;
   document.getElementById("hero-scored").textContent = scored.length;
-  document.getElementById("hero-generated").textContent = generated.length;
-  document.getElementById("hero-unavailable").textContent = unavailable.length;
+  document.getElementById("hero-generated").textContent = emptyNotebooks.length;
+  document.getElementById("hero-unavailable").textContent = venueCount;
   document.getElementById("hero-alpha").textContent = positiveAlpha.length;
   document.getElementById("hero-best").textContent = currentLeader ? currentLeader.mseNum.toFixed(4) : "-";
 }
@@ -643,40 +641,37 @@ function renderWinner() {
   if (!currentLeader) return;
   document.getElementById("winner-name").textContent = currentLeader.model;
   const platformPill = document.getElementById("winner-platform-pill");
-  platformPill.textContent = currentLeader.platform;
+  platformPill.textContent = platformLabel(currentLeader.platform);
   platformPill.className = `pill ${platformClass(currentLeader.platform)}`;
   document.getElementById("winner-copy").textContent =
-    `${currentLeader.model} is the current scored leader in the saved repository outputs. It came from ${currentLeader.platform}, posted the lowest recorded MSE, and is one of only ${positiveAlpha.length} scored entries with positive R2 in the current book.`;
+    `${currentLeader.model} is the current scored leader in the rescored repository book. It came from ${platformLabel(currentLeader.platform)}, posted the lowest recorded MSE, and is one of only ${positiveAlpha.length} scored entries with positive R2 in the current book.`;
   document.getElementById("winner-mse").textContent = currentLeader.mseNum.toFixed(6);
   document.getElementById("winner-r2").textContent = currentLeader.r2Num.toFixed(6);
   document.getElementById("winner-lines").textContent = currentLeader.linesNum;
-  document.getElementById("winner-platform").textContent = currentLeader.platform;
+  document.getElementById("winner-platform").textContent = platformLabel(currentLeader.platform);
 }
 
 function renderPlatformCards() {
   const cardHost = document.getElementById("platform-cards");
-  ["NVIDIA NIM", "Ollama Cloud", "Hugging Face"].forEach((platform) => {
+  ["nvidia", "ollama", "huggingface"].forEach((platform) => {
     const subset = rows.filter((row) => row.platform === platform);
     const ok = subset.filter((row) => row.status === "OK").length;
-    const gen = subset.filter((row) => row.status === "GENERATED").length;
-    const fail = subset.filter((row) => row.status === "FAILED").length;
     const empty = subset.filter((row) => row.status === "EMPTY_NOTEBOOK").length;
     const cls = platformClass(platform);
 
     const card = document.createElement("div");
     card.className = "card platform-card";
     card.innerHTML = `
-      <div class="platform-name"><span class="pill ${cls}">${platform}</span></div>
+      <div class="platform-name"><span class="pill ${cls}">${platformLabel(platform)}</span></div>
       <div class="platform-note">
-        ${platform === "NVIDIA NIM"
-          ? "This venue currently dominates the scored book because it has the deepest completed evaluation history in the repository."
-          : "This venue is included in the project universe and shown here with generated, failed, or blocked outputs preserved from the saved repo record."}
+        ${platform === "nvidia"
+          ? "This venue still provides the deepest bench and the current overall leader, but it is now shown beside fully rescored Ollama and Hugging Face report notebooks."
+          : "These committed notebook reports are now rescored in the same repository harness, so this venue is represented by real scored outputs rather than placeholder rows."}
       </div>
       <div class="stats-inline">
-        <div class="stat-chip"><strong>${subset.length}</strong><br>attempted</div>
+        <div class="stat-chip"><strong>${subset.length}</strong><br>reports</div>
         <div class="stat-chip"><strong>${ok}</strong><br>scored</div>
-        <div class="stat-chip"><strong>${gen}</strong><br>generated</div>
-        <div class="stat-chip"><strong>${fail + empty}</strong><br>failed / empty</div>
+        <div class="stat-chip"><strong>${empty}</strong><br>empty</div>
       </div>
     `;
     cardHost.appendChild(card);
@@ -692,7 +687,7 @@ function renderTopScored() {
     tr.innerHTML = `
       <td class="mono">${row.rank}</td>
       <td class="mono">${row.model}</td>
-      <td><span class="pill ${platformClass(row.platform)}">${row.platform}</span></td>
+      <td><span class="pill ${platformClass(row.platform)}">${platformLabel(row.platform)}</span></td>
       <td class="mono">${row.mseNum.toFixed(6)}</td>
       <td class="mono">${row.r2Num.toFixed(6)}</td>
       <td class="mono">${row.linesNum}</td>
@@ -702,10 +697,9 @@ function renderTopScored() {
 }
 
 function noteForRow(row) {
-  if (row.status === "OK") return "Fully scored under the saved evaluation harness.";
-  if (row.status === "GENERATED") return row.error || "Notebook generated and preserved; still awaiting rescoring.";
+  if (row.status === "OK") return "Rescored from the committed notebook report under the repo harness.";
   if (row.status === "EMPTY_NOTEBOOK") return row.error || "Model returned an empty notebook.";
-  return row.error || "Request failed or access was blocked.";
+  return row.error || "Included in the archive without a scored result.";
 }
 
 function renderAllTable(platform = "all") {
@@ -719,7 +713,7 @@ function renderAllTable(platform = "all") {
     tr.innerHTML = `
       <td class="mono">${row.rank || "-"}</td>
       <td class="mono">${row.model}</td>
-      <td><span class="pill ${platformClass(row.platform)}">${row.platform}</span></td>
+      <td><span class="pill ${platformClass(row.platform)}">${platformLabel(row.platform)}</span></td>
       <td><span class="status-badge ${statusClass(row.status)}">${statusLabel(row.status)}</span></td>
       <td class="mono">${row.mseNum !== null ? row.mseNum.toFixed(6) : "-"}</td>
       <td class="mono">${row.r2Num !== null ? row.r2Num.toFixed(6) : "-"}</td>
