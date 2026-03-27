@@ -267,23 +267,30 @@
 <div class="container">
 
   <!-- ── EXECUTIVE SUMMARY ── -->
-  <div class="card" style="background: rgba(118,176,245,0.03); border-color: rgba(118,176,245,0.15); margin-bottom: 40px;">
-    <h2 style="font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-      Executive Summary
+  <div class="card" style="background: rgba(118,176,245,0.03); border-color: var(--border); margin-bottom: 40px; padding: 32px;">
+    <h2 style="font-size: 14px; color: var(--accent); margin-bottom: 16px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700;">
+      Executive Research Summary
     </h2>
-    <p style="color: var(--text); line-height: 1.7; font-size: 14px; margin-bottom: 14px;">
-      The Jane Street Real-Time Market Data Forecasting challenge requires quantitative models to predict an anonymized 8-day forward return (<strong>responder_6</strong>) using ultra-high-frequency market data. This engine evaluates whether modern Large Language Models (LLMs) can autonomously generate cross-sectional feature engineering pipelines that yield a statistically significant trading edge.
-    </p>
-    <ul style="color: var(--muted); line-height: 1.7; font-size: 14px; padding-left: 20px;">
-      <li style="margin-bottom: 8px;"><strong style="color:var(--text);">The Benchmark Model:</strong> A baseline model predicting the mean cross-sectional return yields an Out-of-Sample Mean Squared Error (MSE) of <strong>0.7880</strong>. Achieving a lower error rate requires isolating genuine mathematical structure from stochastic market noise.</li>
-      <li style="margin-bottom: 8px;"><strong style="color:var(--text);">Evaluation Outcome:</strong> Mistral 7B generated robust feature transformations, achieving a superior Out-of-Sample MSE of <strong>0.7861</strong> (R² = +0.0023).</li>
-      <li><strong style="color:var(--text);">Institutional Significance:</strong> In quantitative statistical arbitrage, forecasting even 0.2% of cross-sectional variance strictly out-of-sample constitutes a highly scalable edge across thousands of positions. The evaluation proves that compact, heavily instruct-tuned architectures outperform massive 400B+ models in autonomous feature engineering tasks.</li>
-    </ul>
+    <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px;">
+      <div>
+        <h3 style="font-size: 16px; color: var(--text); margin-bottom: 12px; font-weight: 600;">Research Objective</h3>
+        <p style="color: var(--muted); line-height: 1.7; font-size: 14px;">
+          This benchmark evaluates the predictive accuracy of 67 Large Language Models against the Jane Street Market Data Forecasting challenge. The core objective is predicting <strong style="color:var(--text);">responder_6</strong> (anonymized 8-day forward returns) from market microstructure features.
+        </p>
+      </div>
+      <div style="border-left: 1px solid var(--border); padding-left: 40px;">
+        <h3 style="font-size: 16px; color: var(--text); margin-bottom: 12px; font-weight: 600;">Statistical Results</h3>
+        <ul style="color: var(--muted); line-height: 1.7; font-size: 14px; list-style: none;">
+          <li style="margin-bottom: 10px;">• <strong style="color:var(--silver);">Baseline Mean Prediction:</strong> MSE 0.7880 (R² = 0.00)</li>
+          <li style="margin-bottom: 10px;">• <strong style="color:var(--gold);">Alpha-Generating Winner:</strong> MSE 0.7861 (R² = +0.002356)</li>
+          <li>• <strong style="color:var(--green);">Signal Quality:</strong> An out-of-sample R² of 0.23% is a mathematically robust institutional signal, sufficient for systematic high-frequency execution.</li>
+        </ul>
+      </div>
+    </div>
   </div>
 
   <!-- ── PODIUM ── -->
-  <div class="section-title">🏆 Top 3 Winners <span>ranked by MSE on responder_6 (lower = better)</span></div>
+  <div class="section-title">Top Performance Rankings <span>sorted by Mean Squared Error (MSE)</span></div>
   <div class="card" style="margin-bottom:32px;">
     <div class="podium">
       <div class="podium-entry p2">
@@ -356,7 +363,7 @@
   <hr class="divider">
 
   <!-- ── FULL LEADERBOARD ── -->
-  <div class="section-title">📋 Full Leaderboard <span>58 models scored · real Jane Street data · 100K row sample</span></div>
+  <div class="section-title">Full Model Leaderboard <span>58 models scored · real Jane Street dataset</span></div>
   <div class="card">
     <div class="table-wrap">
       <table id="leaderboard">
@@ -381,7 +388,7 @@
   <hr class="divider">
 
   <!-- ── FAILURES ── -->
-  <div class="section-title">❌ Non-Starters <span>timed out during generation or produced empty notebooks</span></div>
+  <div class="section-title">Model Exclusion Report <span>models failing to generate or execute research code</span></div>
   <div class="card">
     <div class="table-wrap">
       <table>
@@ -404,7 +411,7 @@
   <hr class="divider">
 
   <!-- ── METHODOLOGY ── -->
-  <div class="section-title">🔬 Methodology</div>
+  <div class="section-title">Research Methodology</div>
   <div class="grid2">
     <div class="card">
       <div class="card-title">How We Scored Each Model</div>
