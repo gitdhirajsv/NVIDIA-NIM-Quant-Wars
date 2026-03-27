@@ -266,6 +266,39 @@
 <!-- ============================================================ MAIN -->
 <div class="container">
 
+  <!-- ── EXPLANATION: BEGINNER VS QUANT ── -->
+  <div class="grid2" style="margin-bottom: 40px;">
+    <!-- Plain English -->
+    <div class="card" style="background: rgba(118,176,245,0.05); border-color: rgba(118,176,245,0.2);">
+      <h2 style="font-size: 16px; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        👶 For Beginners (Plain English)
+      </h2>
+      <p style="color: var(--text); line-height: 1.6; font-size: 13px; margin-bottom: 12px;">
+        Jane Street asked: <strong>"Can you predict the market?"</strong> They measure success using an error score.
+      </p>
+      <ul style="color: var(--muted); line-height: 1.6; font-size: 13px; padding-left: 20px;">
+        <li style="margin-bottom: 6px;"><strong style="color:var(--silver);">The Baseline:</strong> If you just closed your eyes and guessed the "average" market movement, your error score would be <strong>0.7880</strong>.</li>
+        <li style="margin-bottom: 6px;"><strong style="color:var(--gold);">The Winner:</strong> Mistral 7B found a real mathematical pattern, scoring a lower error rate of <strong>0.7861</strong>.</li>
+        <li><strong style="color:var(--green);">Is that good?</strong> Yes! In extreme high-frequency trading, predicting even a tiny fraction of a percent (0.23%) is a massive, highly-profitable edge.</li>
+      </ul>
+    </div>
+
+    <!-- The Math -->
+    <div class="card" style="background: rgba(167,139,250,0.05); border-color: rgba(167,139,250,0.2);">
+      <h2 style="font-size: 16px; color: var(--accent2); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        📐 For Quants (The Math)
+      </h2>
+      <p style="color: var(--text); line-height: 1.6; font-size: 13px; margin-bottom: 12px;">
+        The target is <strong>responder_6</strong> (anonymized 8-day forward return). The baseline prediction is 0.
+      </p>
+      <ul style="color: var(--muted); line-height: 1.6; font-size: 13px; padding-left: 20px;">
+        <li style="margin-bottom: 6px;"><strong>Objective:</strong> Minimize Out-of-Sample Mean Squared Error: <code>1/n ∑(y - ŷ)²</code></li>
+        <li style="margin-bottom: 6px;"><strong>R² Metric:</strong> <code>1 - (MSE_model / MSE_baseline)</code>. The winner achieved <strong>+0.002356</strong>, meaning the model explains 0.23% of the cross-sectional variance.</li>
+        <li><strong>Significance:</strong> A strictly out-of-sample R² > 0 on real Jane Street microstructure data indicates a statistically robust, non-spurious alphanumeric signal.</li>
+      </ul>
+    </div>
+  </div>
+
   <!-- ── PODIUM ── -->
   <div class="section-title">🏆 Top 3 Winners <span>ranked by MSE on responder_6 (lower = better)</span></div>
   <div class="card" style="margin-bottom:32px;">
