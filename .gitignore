@@ -2,57 +2,47 @@
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
 .Python
+.venv/
 venv/
 env/
 ENV/
 build/
 dist/
 *.egg-info/
-.installed.cfg
 *.egg
 
-# Jupyter Notebooks (generated)
-*.ipynb
-.ipynb_checkpoints
-
-# Results (keep CSV/HTML, exclude notebooks)
-results/
-!results/.gitkeep
-platforms/*/results/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS
-.DS_Store
-Thumbs.db
+# Notebooks
+.ipynb_checkpoints/
 
 # Environment
 .env
 
 # Logs
+competition_log_*.txt
+hf_competition_log_*.txt
+health_report_*.txt
 *.log
 
-# Large data
+# Data
 *.parquet
-*.csv
-!leaderboard.csv
-!unified_leaderboard.csv
 jane_street_data/
 
-# Models
+# Model artifacts
 *.pkl
 *.joblib
 *.bin
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
 
 # Temporary
 tmp/
 temp/
 *.tmp
-$null  

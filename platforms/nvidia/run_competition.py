@@ -4,10 +4,13 @@ import sys
 import time
 import gc
 import datetime
+from pathlib import Path
 import nbformat as nbf
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_core.prompts import ChatPromptTemplate
+
+PLATFORM_DIR = Path(__file__).resolve().parent
 
 # ==========================================
 # 1. API KEY SETUP — read from environment
@@ -77,7 +80,7 @@ NO_SYSTEM_ROLE_MODELS = [
 # 3. LOGGING SETUP
 # ==========================================
 if LOG_ERRORS:
-    log_file = f"competition_log_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+    log_file = PLATFORM_DIR / f"competition_log_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
     log_handle = open(log_file, "w", encoding="utf-8")
     def log(msg):
         log_handle.write(f"[{datetime.datetime.now().strftime('%H:%M:%S')}] {msg}\n")
@@ -344,8 +347,9 @@ for i, model_id in enumerate(competitors, 1):
         nb.cells.append(nbf.v4.new_markdown_cell(f"# Results for model: {model_id}"))
         nb.cells.append(nbf.v4.new_code_cell(code_content))
 
-        os.makedirs("generated_notebooks", exist_ok=True)
-        fname = f"generated_notebooks/{model_id.replace('/', '_').replace(':', '_')}.ipynb"
+        output_dir = PLATFORM_DIR / "generated_notebooks"
+        output_dir.mkdir(parents=True, exist_ok=True)
+        fname = output_dir / f"{model_id.replace('/', '_').replace(':', '_')}.ipynb"
         with open(fname, 'w', encoding='utf-8') as f:
             nbf.write(nb, f)
         print(f"  -> Created: {fname}\n")

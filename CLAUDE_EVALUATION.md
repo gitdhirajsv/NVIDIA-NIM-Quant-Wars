@@ -2,11 +2,11 @@
 
 ## Task for Claude
 
-Please review the results and **declare the ultimate winner** across all three platforms (NVIDIA NIM, Ollama Cloud, Hugging Face).
+Please review the results and identify the **current evaluated leader** across all three platforms (NVIDIA NIM, Ollama Cloud, Hugging Face).
 
 ---
 
-## Current Champion (NVIDIA NIM - Fully Evaluated)
+## Current Evaluated Champion (NVIDIA NIM - Fully Evaluated)
 
 **🏆 mistralai/mistral-7b-instruct-v0.3**
 - **MSE**: 0.78611
@@ -17,7 +17,7 @@ Please review the results and **declare the ultimate winner** across all three p
 
 ---
 
-## Pending Evaluation
+## Unscored Generated Reports
 
 ### Ollama Cloud (11 models generated code)
 | Model | Status |
@@ -62,21 +62,19 @@ Please consider:
 
 - `unified_leaderboard.csv` - Complete results
 - `unified_dashboard.html` - Interactive visualization
-- `executed_notebooks/` - Run notebooks with scores
-- `generated_notebooks/` - Raw generated code
-- `ollama_results/` - Ollama generated notebooks
-- `huggingface_results/` - HF generated notebooks
+- `platforms/nvidia/generated_notebooks/` - NVIDIA NIM notebook reports
+- `platforms/ollama/generated_notebooks/` - Ollama generated notebooks
+- `platforms/huggingface/generated_notebooks/` - HF generated notebooks
 
 ---
 
-## Decision Needed
+## Current Decision
 
-**Question**: Based on the available data, which model should be declared the **Ultimate Jane Street Quant Wars Champion**?
+Based on the scored reports currently saved in this repository, the leader is:
 
-Should we:
-A) Crown the current NVIDIA NIM winner (mistral-7b) immediately
-B) Wait for full evaluation of Ollama + HF models
-C) Create categories (Best Small Model, Best Code Quality, etc.)
+**mistralai/mistral-7b-instruct-v0.3**
+
+Ollama Cloud and Hugging Face generated notebook reports are included in the repo, but they still need full rescoring before we can declare a final cross-platform winner without caveats.
 
 ---
 
