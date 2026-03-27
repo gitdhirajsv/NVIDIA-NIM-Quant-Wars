@@ -9,27 +9,27 @@
 <!-- No external script dependencies for core visualization -->
 <style>
   :root {
-    --bg: #f8fafc;
+    --bg: #edf2f7;
     --surface: #ffffff;
-    --surface2: #f1f5f9;
-    --border: #e2e8f0;
-    --accent: #2563eb;
-    --accent2: #7c3aed;
-    --gold: #ca8a04;
-    --silver: #475569;
-    --bronze: #92400e;
-    --green: #16a34a;
-    --red: #dc2626;
+    --surface2: #f7f9fc;
+    --border: #d8e1ea;
+    --accent: #163b63;
+    --accent2: #355c7d;
+    --gold: #b38a2f;
+    --silver: #5b6b7f;
+    --bronze: #8a5f3d;
+    --green: #157347;
+    --red: #b42318;
     --text: #0f172a;
-    --muted: #64748b;
+    --muted: #667085;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
   /* ——— HERO ——— */
   .hero {
-    background: #ffffff;
-    border-bottom: 1px solid var(--border);
+    background: linear-gradient(135deg, #08111d 0%, #10243a 55%, #173a5d 100%);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
     padding: 80px 40px 60px;
     text-align: center;
     position: relative;
@@ -42,14 +42,14 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(ellipse at center, rgba(118,176,245,0.07) 0%, transparent 60%);
+    background: radial-gradient(ellipse at center, rgba(207,168,84,0.14) 0%, transparent 62%);
     pointer-events: none;
   }
   .hero-badge {
     display: inline-block;
-    background: #f1f5f9;
-    border: 1px solid var(--border);
-    color: var(--muted);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.88);
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 2px;
@@ -63,13 +63,13 @@
     font-weight: 800;
     letter-spacing: -2px;
     line-height: 1;
-    color: #0f172a;
+    color: #ffffff;
     margin-bottom: 20px;
   }
   .hero p {
     font-size: 18px;
-    color: var(--muted);
-    max-width: 640px;
+    color: rgba(255,255,255,0.82);
+    max-width: 760px;
     margin: 0 auto 32px;
     line-height: 1.6;
   }
@@ -80,8 +80,8 @@
     flex-wrap: wrap;
   }
   .hero-stat { text-align: center; }
-  .hero-stat .num { font-size: 36px; font-weight: 900; color: var(--accent); }
-  .hero-stat .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+  .hero-stat .num { font-size: 36px; font-weight: 900; color: #ffffff; }
+  .hero-stat .label { font-size: 12px; color: rgba(255,255,255,0.68); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
 
   /* ——— LAYOUT ——— */
   .container { max-width: 1300px; margin: 0 auto; padding: 40px 24px; }
@@ -263,15 +263,15 @@
 
 <!-- ============================================================ HERO -->
 <div class="hero">
-  <div class="hero-badge">Audit Results · March 2026</div>
+  <div class="hero-badge">Institutional Research Snapshot · March 2026</div>
   <h1>NVIDIA NIM Quant Wars</h1>
-  <p>67 NVIDIA NIM models were fully scored, and after reviewing the saved Ollama and Hugging Face report folders, this bracket still contains the current evaluated champion.</p>
+  <p>This report asks a practical quant question in plain English: if you let a large language model write a forecasting pipeline from scratch, does any of that code survive a standardized out-of-sample test on Jane Street data? In the scored book below, one small Mistral model did.</p>
   <div class="hero-meta">
     <div class="hero-stat"><div class="num">67</div><div class="label">Models Entered</div></div>
-    <div class="hero-stat"><div class="num">58</div><div class="label">Models Scored</div></div>
-    <div class="hero-stat"><div class="num">100K</div><div class="label">Rows Evaluated</div></div>
-    <div class="hero-stat"><div class="num">79</div><div class="label">Market Features</div></div>
-    <div class="hero-stat"><div class="num">0.786</div><div class="label">Best MSE</div></div>
+    <div class="hero-stat"><div class="num">58</div><div class="label">Scored Outputs</div></div>
+    <div class="hero-stat"><div class="num">3</div><div class="label">Positive Alpha Models</div></div>
+    <div class="hero-stat"><div class="num">100K</div><div class="label">Out-of-Sample Rows</div></div>
+    <div class="hero-stat"><div class="num">0.7861</div><div class="label">Best Recorded MSE</div></div>
   </div>
 </div>
 
@@ -287,15 +287,15 @@
       <div>
         <h3 style="font-size: 16px; color: var(--text); margin-bottom: 12px; font-weight: 600;">Research Objective</h3>
         <p style="color: var(--muted); line-height: 1.7; font-size: 14px;">
-          This benchmark evaluates the predictive accuracy of 67 Large Language Models against the Jane Street Market Data Forecasting challenge. The core objective is predicting <strong style="color:var(--text);">responder_6</strong> (anonymized 8-day forward returns) from market microstructure features.
+          We asked each model to produce runnable forecasting code, not a market essay. The evaluation then checks whether the generated pipeline can predict <strong style="color:var(--text);">responder_6</strong>, an anonymized forward-return target, better than a simple mean baseline on the same research sample.
         </p>
       </div>
       <div style="border-left: 1px solid var(--border); padding-left: 40px;">
         <h3 style="font-size: 16px; color: var(--text); margin-bottom: 12px; font-weight: 600;">Statistical Results</h3>
         <ul style="color: var(--muted); line-height: 1.7; font-size: 14px; list-style: none;">
-          <li style="margin-bottom: 10px;">• <strong style="color:var(--silver);">Baseline Mean Prediction:</strong> MSE 0.7880 (R² = 0.00)</li>
-          <li style="margin-bottom: 10px;">• <strong style="color:var(--gold);">Alpha-Generating Winner:</strong> MSE 0.7861 (R² = +0.002356)</li>
-          <li>• <strong style="color:var(--green);">Signal Quality:</strong> An out-of-sample R² of 0.23% is a mathematically robust institutional signal, sufficient for systematic high-frequency execution.</li>
+          <li style="margin-bottom: 10px;">• <strong style="color:var(--silver);">Baseline view:</strong> predicting the mean leaves you around MSE 0.7880 and R² 0.00.</li>
+          <li style="margin-bottom: 10px;">• <strong style="color:var(--gold);">Best scored model:</strong> Mistral 7B reached MSE 0.7861 with positive R².</li>
+          <li>• <strong style="color:var(--green);">Plain-English takeaway:</strong> many models produced sensible-looking code, but only a very small group generated signal that actually improved on the baseline once everything was scored the same way.</li>
         </ul>
       </div>
     </div>
@@ -329,34 +329,34 @@
   <!-- ── METRICS ── -->
   <div class="grid3" style="margin-bottom:32px;">
     <div class="metric">
-      <div class="metric-label">Leading Algorithm</div>
+      <div class="metric-label">Current Evaluated Leader</div>
       <div class="metric-value gold" style="font-size:16px;margin-top:4px;">mistralai/mistral-7b-instruct-v0.3</div>
-      <div class="metric-sub">Only model with positive R² among top performers</div>
+      <div class="metric-sub">Small model, clean code, best scored result in the current book</div>
     </div>
     <div class="metric">
-      <div class="metric-label">Optimal MSE</div>
+      <div class="metric-label">Best Out-of-Sample MSE</div>
       <div class="metric-value green">0.7861</div>
-      <div class="metric-sub">RMSE = 0.8866 · R² = +0.0024</div>
+      <div class="metric-sub">RMSE 0.8866 · R² +0.0024</div>
     </div>
     <div class="metric">
       <div class="metric-label">Code Generation Stability</div>
       <div class="metric-value accent">93.9%</div>
-      <div class="metric-sub">63/67 models generated code · 4 timed out</div>
+      <div class="metric-sub">63 of 67 models returned usable code before scoring</div>
     </div>
     <div class="metric">
-      <div class="metric-label">Execution Success Rate</div>
+      <div class="metric-label">Scored Output Rate</div>
       <div class="metric-value purple">86.6%</div>
-      <div class="metric-sub">58 of 67 total models produced scoreable output</div>
+      <div class="metric-sub">58 of 67 models produced notebook outputs the harness could score</div>
     </div>
     <div class="metric">
-      <div class="metric-label">Predictive Alpha Yield</div>
+      <div class="metric-label">Positive Alpha Count</div>
       <div class="metric-value green">3</div>
-      <div class="metric-sub">Only top 3 beat the baseline mean prediction</div>
+      <div class="metric-sub">Only three scored entries beat the mean baseline</div>
     </div>
     <div class="metric">
-      <div class="metric-label">Algorithmic Complexity</div>
+      <div class="metric-label">Max Code Length</div>
       <div class="metric-value accent">79</div>
-      <div class="metric-sub">Lines — mistralai/mistral-nemotron wrote most code</div>
+      <div class="metric-sub">Longer code did not translate into better forecasting quality</div>
     </div>
   </div>
 
@@ -501,7 +501,7 @@
 
 <footer>
   Built by <a href="https://github.com/gitdhirajsv">Dhiraj</a> ·
-  <a href="https://github.com/gitdhirajsv/NVIDIA-NIM-Quant-Wars">GitHub Repository</a> ·
+  <a href="https://github.com/gitdhirajsv/Jane-Street-Quant-Wars">GitHub Repository</a> ·
   <a href="https://www.kaggle.com/competitions/jane-street-real-time-market-data-forecasting">Jane Street Competition</a> ·
   <a href="https://build.nvidia.com/">NVIDIA NIM API</a>
   <br><br>
