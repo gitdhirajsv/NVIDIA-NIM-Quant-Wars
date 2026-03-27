@@ -6,7 +6,7 @@
 <title>NVIDIA NIM Quant Wars — Results Dashboard</title>
 <meta name="description" content="Full leaderboard and analysis of 200+ NVIDIA NIM LLMs competing on the Jane Street Real-Time Market Data Forecasting challenge.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
   :root {
     --bg: #f8fafc;
@@ -207,7 +207,8 @@
   .badge-no { background: rgba(248,113,113,0.15); color: var(--red); }
 
   /* ——— CHART ——— */
-  .chart-container { position: relative; height: 320px; }
+  .chart-container { position: relative; height: 320px; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; }
+  .chart-error { font-size: 12px; color: var(--muted); padding: 20px; border: 1px dashed var(--border); border-radius: 8px; width: 80%; }
 
   /* ——— SECTION TITLE ——— */
   .section-title {
@@ -542,7 +543,20 @@ DATA.forEach(d => {
 });
 
 // ── Initialize Charts ──
-window.addEventListener('load', () => {
+function initCharts() {
+  const containers = document.querySelectorAll('.chart-container');
+  
+  if (typeof Chart === 'undefined') {
+    containers.forEach(c => {
+      c.innerHTML = `<div class="chart-error">
+        <strong>Visualization Script Blocked</strong><br>
+        Your browser or previewer (e.g. htmlpreview) is blocking external scripts.<br>
+        <span style="font-size:11px; margin-top:8px; display:block;">Please open results_dashboard.html directly in a local browser to see analytical charts.</span>
+      </div>`;
+    });
+    return;
+  }
+
   try {
     // MSE Bar Chart (top 20)
     const top20 = DATA.slice(0,20);
@@ -600,7 +614,14 @@ window.addEventListener('load', () => {
   } catch (e) {
     console.error("Chart initialization failed:", e);
   }
-});
+}
+
+// Run on load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCharts);
+} else {
+  initCharts();
+}
 </script>
 </body>
 </html>
