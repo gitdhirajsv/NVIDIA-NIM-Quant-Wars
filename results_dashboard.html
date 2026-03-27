@@ -248,7 +248,7 @@
 
 <!-- ============================================================ HERO -->
 <div class="hero">
-  <div class="hero-badge">⚡ Live Results · March 2026</div>
+  <div class="hero-badge">Audit Results · March 2026</div>
   <h1>NVIDIA NIM Quant Wars</h1>
   <p>67 AI models competed to solve the Jane Street Real-Time Market Data Forecasting challenge. Only one could win.</p>
   <div class="hero-meta">
@@ -291,19 +291,19 @@
   <div class="card" style="margin-bottom:32px;">
     <div class="podium">
       <div class="podium-entry p2">
-        <div class="podium-block">🥈</div>
+        <div class="podium-block">2</div>
         <div class="podium-name">yentinglin/<br>llama-3-taiwan-70b</div>
         <div class="podium-score">MSE: 0.786624</div>
         <div class="podium-r2">R² = 0.001704</div>
       </div>
       <div class="podium-entry p1">
-        <div class="podium-block">🥇</div>
+        <div class="podium-block">1</div>
         <div class="podium-name">mistralai/<br>mistral-7b-instruct-v0.3</div>
         <div class="podium-score">MSE: 0.786110</div>
         <div class="podium-r2">R² = 0.002356</div>
       </div>
       <div class="podium-entry p3">
-        <div class="podium-block">🥉</div>
+        <div class="podium-block">3</div>
         <div class="podium-name">nvidia/<br>nemotron-4-mini-hindi</div>
         <div class="podium-score">MSE: 0.787319</div>
         <div class="podium-r2">R² = 0.000821</div>
@@ -314,32 +314,32 @@
   <!-- ── METRICS ── -->
   <div class="grid3" style="margin-bottom:32px;">
     <div class="metric">
-      <div class="metric-label">🥇 Winner</div>
+      <div class="metric-label">Leading Algorithm</div>
       <div class="metric-value gold" style="font-size:16px;margin-top:4px;">mistralai/mistral-7b-instruct-v0.3</div>
       <div class="metric-sub">Only model with positive R² among top performers</div>
     </div>
     <div class="metric">
-      <div class="metric-label">📊 Best MSE</div>
+      <div class="metric-label">Optimal MSE</div>
       <div class="metric-value green">0.7861</div>
       <div class="metric-sub">RMSE = 0.8866 · R² = +0.0024</div>
     </div>
     <div class="metric">
-      <div class="metric-label">✅ Generation Success Rate</div>
+      <div class="metric-label">Code Generation Stability</div>
       <div class="metric-value accent">93.9%</div>
       <div class="metric-sub">63/67 models generated code · 4 timed out</div>
     </div>
     <div class="metric">
-      <div class="metric-label">⚡ Scoring Success</div>
+      <div class="metric-label">Execution Success Rate</div>
       <div class="metric-value purple">86.6%</div>
       <div class="metric-sub">58 of 67 total models produced scoreable output</div>
     </div>
     <div class="metric">
-      <div class="metric-label">📈 Models with Positive R²</div>
+      <div class="metric-label">Predictive Alpha Yield</div>
       <div class="metric-value green">3</div>
       <div class="metric-sub">Only top 3 beat the baseline mean prediction</div>
     </div>
     <div class="metric">
-      <div class="metric-label">📝 Max Code Length</div>
+      <div class="metric-label">Algorithmic Complexity</div>
       <div class="metric-value accent">79</div>
       <div class="metric-sub">Lines — mistralai/mistral-nemotron wrote most code</div>
     </div>
@@ -541,53 +541,64 @@ DATA.forEach(d => {
   </tr>`;
 });
 
-// ── MSE Bar Chart (top 20) ──
-const top20 = DATA.slice(0,20);
-const ctx1 = document.getElementById('mseChart').getContext('2d');
-new Chart(ctx1, {
-  type:'bar',
-  data:{
-    labels: top20.map(d=>d.model.split('/')[1] || d.model),
-    datasets:[{
-      label:'MSE',
-      data: top20.map(d=>d.mse),
-      backgroundColor: top20.map((d,i)=>i===0?'#ca8a04':i===1?'#475569':i===2?'#92400e':'#3b82f6'),
-      borderWidth:0, borderRadius:2
-    }]
-  },
-  options:{
-    responsive:true, maintainAspectRatio:false,
-    indexAxis:'y',
-    plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx=>`MSE: ${ctx.raw.toFixed(6)}`}}},
-    scales:{
-      x:{ min:0.783, ticks:{color:'#64748b',font:{size:10}}, grid:{color:'#e2e8f0'} },
-      y:{ ticks:{color:'#0f172a',font:{size:10,family:'JetBrains Mono'}}, grid:{display:false} }
+// ── Initialize Charts ──
+window.addEventListener('load', () => {
+  try {
+    // MSE Bar Chart (top 20)
+    const top20 = DATA.slice(0,20);
+    const canvas1 = document.getElementById('mseChart');
+    if (canvas1) {
+      new Chart(canvas1.getContext('2d'), {
+        type:'bar',
+        data:{
+          labels: top20.map(d=>d.model.split('/')[1] || d.model),
+          datasets:[{
+            label:'MSE',
+            data: top20.map(d=>d.mse),
+            backgroundColor: top20.map((d,i)=>i===0?'#ca8a04':i===1?'#475569':i===2?'#92400e':'#3b82f6'),
+            borderWidth:0, borderRadius:2
+          }]
+        },
+        options:{
+          responsive:true, maintainAspectRatio:false,
+          indexAxis:'y',
+          plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx=>`MSE: ${ctx.raw.toFixed(6)}`}}},
+          scales:{
+            x:{ min:0.783, ticks:{color:'#64748b',font:{size:10}}, grid:{color:'#e2e8f0'} },
+            y:{ ticks:{color:'#0f172a',font:{size:10,family:'JetBrains Mono'}}, grid:{display:false} }
+          }
+        }
+      });
     }
-  }
-});
 
-// ── Provider Donut Chart ──
-const providers = {};
-DATA.forEach(d=>{
-  const org = d.model.split('/')[0];
-  if(!providers[org]) providers[org]=0;
-  providers[org]++;
-});
-const sorted = Object.entries(providers).sort((a,b)=>b[1]-a[1]).slice(0,7);
-const colors = ['#2563eb','#7c3aed','#16a34a','#ca8a04','#dc2626','#ea580c','#0284c7'];
-const ctx2 = document.getElementById('providerChart').getContext('2d');
-new Chart(ctx2,{
-  type:'doughnut',
-  data:{
-    labels: sorted.map(x=>x[0]),
-    datasets:[{data:sorted.map(x=>x[1]),backgroundColor:colors,borderColor:'#ffffff',borderWidth:2}]
-  },
-  options:{
-    responsive:true, maintainAspectRatio:false,
-    plugins:{
-      legend:{position:'right',labels:{color:'#64748b',font:{size:12},padding:12}},
-      tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${ctx.raw} models`}}
+    // Provider Donut Chart
+    const providers = {};
+    DATA.forEach(d=>{
+      const org = d.model.split('/')[0];
+      if(!providers[org]) providers[org]=0;
+      providers[org]++;
+    });
+    const sorted = Object.entries(providers).sort((a,b)=>b[1]-a[1]).slice(0,7);
+    const colors = ['#2563eb','#7c3aed','#16a34a','#ca8a04','#dc2626','#ea580c','#0284c7'];
+    const canvas2 = document.getElementById('providerChart');
+    if (canvas2) {
+      new Chart(canvas2.getContext('2d'),{
+        type:'doughnut',
+        data:{
+          labels: sorted.map(x=>x[0]),
+          datasets:[{data:sorted.map(x=>x[1]),backgroundColor:colors,borderColor:'#ffffff',borderWidth:2}]
+        },
+        options:{
+          responsive:true, maintainAspectRatio:false,
+          plugins:{
+            legend:{position:'right',labels:{color:'#64748b',font:{size:12},padding:12}},
+            tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${ctx.raw} models`}}
+          }
+        }
+      });
     }
+  } catch (e) {
+    console.error("Chart initialization failed:", e);
   }
 });
 </script>
