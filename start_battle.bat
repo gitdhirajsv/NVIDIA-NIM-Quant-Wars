@@ -32,7 +32,7 @@ echo [STEP 1/4] Cleaning up unnecessary files...
 echo.
 
 :: Delete all .ipynb files (generated notebooks will be recreated)
-for %%f in (*.ipynb) do (
+for %%f in (generated_notebooks\*.ipynb) do (
     del /q "%%f" 2>nul
 )
 

@@ -162,10 +162,15 @@ def evaluate_model_code(model_id, code, df):
 # ============================================================
 def main():
     base_dir = os.path.dirname(__file__)
+    nb_dir = os.path.join(base_dir, "generated_notebooks")
 
-    # Find all generated notebooks in the root directory
+    if not os.path.exists(nb_dir):
+        print(f"Directory not found: {nb_dir}")
+        return
+
+    # Find all generated notebooks in the generated_notebooks directory
     notebooks = sorted([
-        f for f in os.listdir(base_dir)
+        f for f in os.listdir(nb_dir)
         if f.endswith(".ipynb")
         and not f.startswith("ERROR_")
         and not f.startswith("00_")
@@ -183,7 +188,7 @@ def main():
 
     results = []
     for i, fname in enumerate(notebooks, 1):
-        fpath = os.path.join(base_dir, fname)
+        fpath = os.path.join(nb_dir, fname)
         model_id = fname.replace(".ipynb", "").replace("_", "/", 1)
 
         print(f"[{i:02d}/{len(notebooks)}] {model_id}")

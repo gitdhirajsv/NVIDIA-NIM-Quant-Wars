@@ -344,7 +344,8 @@ for i, model_id in enumerate(competitors, 1):
         nb.cells.append(nbf.v4.new_markdown_cell(f"# Results for model: {model_id}"))
         nb.cells.append(nbf.v4.new_code_cell(code_content))
 
-        fname = f"{model_id.replace('/', '_').replace(':', '_')}.ipynb"
+        os.makedirs("generated_notebooks", exist_ok=True)
+        fname = f"generated_notebooks/{model_id.replace('/', '_').replace(':', '_')}.ipynb"
         with open(fname, 'w', encoding='utf-8') as f:
             nbf.write(nb, f)
         print(f"  -> Created: {fname}\n")

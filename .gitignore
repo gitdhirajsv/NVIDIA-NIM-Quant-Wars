@@ -59,7 +59,10 @@ run_one_by_one.bat
 ALL_SOLUTIONS.txt
 TOP_5_MODELS.txt
 
-# NOTE: *.ipynb are INCLUDED (not ignored)
-# so GitHub users can see all generated model solutions
+*.ipynb
+!generated_notebooks/
+!generated_notebooks/*.ipynb
+!executed_notebooks/00_WORKING_EXAMPLE.ipynb
+
 # NOTE: leaderboard.csv is INCLUDED
 # NOTE: results_dashboard.html is INCLUDED

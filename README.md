@@ -118,7 +118,7 @@ NVIDIA-NIM-Quant-Wars/
 ├── jane_street_xgboost_model.json# Pre-trained XGBoost baseline model
 ├── jane_street_data/             # Competition dataset (download separately)
 ├── executed_notebooks/           # Reference execution examples
-└── *.ipynb                       # 63 AI-generated solution notebooks
+└── generated_notebooks/          # 63 AI-generated solution notebooks
 ```
 
 ---
