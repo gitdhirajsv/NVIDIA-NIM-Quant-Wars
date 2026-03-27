@@ -10,6 +10,22 @@ echo.
 cd /d "%~dp0"
 
 :: ============================================================
+:: 0. NVIDIA API KEY SETUP
+:: ============================================================
+if "%NVIDIA_API_KEY%"=="" (
+    echo   NVIDIA_API_KEY is not set in your environment.
+    echo.
+    set /p NVIDIA_API_KEY="  Enter your NVIDIA API Key: "
+    echo.
+)
+
+if "%NVIDIA_API_KEY%"=="" (
+    echo   ERROR: No API key provided. Exiting.
+    pause
+    exit /b 1
+)
+
+:: ============================================================
 :: 1. CLEANUP UNNECESSARY FILES
 :: ============================================================
 echo [STEP 1/4] Cleaning up unnecessary files...
@@ -40,8 +56,8 @@ for %%f in (qwen-here.bat run_one_by_one.bat) do (
     del /q "%%f" 2>nul
 )
 
-:: Delete instruction files that are no longer needed
-for %%f in (INSTRUCTIONS_FOR_QWEN.txt FILES_SAFE_TO_DELETE.txt README.md) do (
+:: Delete instruction files that are no longer needed (README.md kept)
+for %%f in (INSTRUCTIONS_FOR_QWEN.txt FILES_SAFE_TO_DELETE.txt) do (
     del /q "%%f" 2>nul
 )
 

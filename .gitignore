@@ -1,15 +1,12 @@
-# Data files (too large for Git)
+# ==========================================
+# DATA FILES (too large for Git ~19GB)
+# ==========================================
 jane_street_data/
 *.parquet
-*.zip
 
-# Trained models
-models/
-*.json
-*.pkl
-*.joblib
-
-# Python
+# ==========================================
+# PYTHON ENVIRONMENT
+# ==========================================
 __pycache__/
 *.pyc
 *.pyo
@@ -17,44 +14,52 @@ __pycache__/
 venv/
 .venv/
 
-# IDE
+# ==========================================
+# LARGE TRAINED MODELS (>500KB)
+# ==========================================
+jane_street_xgb_model.json
+
+# jane_street_xgboost_model.json is small (692KB) — included
+
+# ==========================================
+# ZIPS & ARCHIVES
+# ==========================================
+*.zip
+
+# ==========================================
+# LOGS (generated at runtime)
+# ==========================================
+competition_log_*.txt
+execution_output.log
+health_report_*.txt
+
+# ==========================================
+# IDE / OS FILES
+# ==========================================
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# OS
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# Logs
-*.log
-
-# Jupyter
+# ==========================================
+# JUPYTER CHECKPOINTS
+# ==========================================
 .ipynb_checkpoints/
 
-# Generated notebooks (recreated by start_battle.bat)
-*.ipynb
-executed_notebooks/
-
-# Logs and temp files
-competition_log_*.txt
-execution_output.log
-*.log
-
-# Instruction files (internal use only)
+# ==========================================
+# OLD / INTERNAL FILES
+# ==========================================
 INSTRUCTIONS_FOR_QWEN.txt
 FILES_SAFE_TO_DELETE.txt
-
-# Images
-*.png
-*.jpg
-*.jpeg
-*.gif
-
-# Old/backup files
-*.bak
-*.old
 qwen-here.bat
 run_one_by_one.bat
+ALL_SOLUTIONS.txt
+TOP_5_MODELS.txt
+
+# NOTE: *.ipynb are INCLUDED (not ignored)
+# so GitHub users can see all generated model solutions
+# NOTE: leaderboard.csv is INCLUDED
+# NOTE: results_dashboard.html is INCLUDED
