@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+build/
+dist/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Jupyter Notebooks (generated)
+*.ipynb
+.ipynb_checkpoints
+
+# Results (keep CSV/HTML, exclude notebooks)
+results/
+!results/.gitkeep
+platforms/*/results/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+
+# Logs
+*.log
+
+# Large data
+*.parquet
+*.csv
+!leaderboard.csv
+!unified_leaderboard.csv
+jane_street_data/
+
+# Models
+*.pkl
+*.joblib
+*.bin
+
+# Temporary
+tmp/
+temp/
+*.tmp
+$null  

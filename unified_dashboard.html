@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jane Street Quant Wars — Ultimate Dashboard</title>
+<meta name="description" content="100+ AI models from NVIDIA, Ollama, and Hugging Face compete on Jane Street Market Forecasting">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8fafc; --surface: #ffffff; --surface2: #f1f5f9; --border: #e2e8f0;
+    --accent: #2563eb; --accent2: #7c3aed; --gold: #ca8a04; --silver: #475569; --bronze: #92400e;
+    --green: #16a34a; --red: #dc2626; --text: #0f172a; --muted: #64748b;
+    --nvidia: #76b041; --ollama: #facc15; --hf: #fbbf24;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  .hero {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #7c3aed 100%);
+    color: white; padding: 80px 40px 60px; text-align: center; position: relative; overflow: hidden;
+  }
+  .hero-badge {
+    display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.9); font-size: 11px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px;
+  }
+  .hero h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 800; letter-spacing: -2px; margin-bottom: 16px; }
+  .hero p { font-size: 18px; color: rgba(255,255,255,0.85); max-width: 700px; margin: 0 auto 32px; }
+  .hero-meta { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+  .hero-stat { text-align: center; }
+  .hero-stat .num { font-size: 36px; font-weight: 900; }
+  .hero-stat .label { font-size: 12px; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+  .container { max-width: 1400px; margin: 0 auto; padding: 40px 24px; }
+  
+  .platform-tabs { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+  .tab {
+    padding: 12px 24px; border-radius: 10px; font-weight: 600; font-size: 14px; cursor: pointer;
+    border: 2px solid var(--border); background: var(--surface); color: var(--muted); transition: all 0.2s;
+  }
+  .tab:hover { border-color: var(--accent); color: var(--accent); }
+  .tab.active { background: var(--accent); color: white; border-color: var(--accent); }
+  .tab.nvidia { border-left: 4px solid var(--nvidia); }
+  .tab.ollama { border-left: 4px solid var(--ollama); }
+  .tab.hf { border-left: 4px solid var(--hf); }
+
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+  @media (max-width: 900px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px;
+  }
+  .card-title {
+    font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
+  }
+  .card-title::before { content: ''; display: block; width: 3px; height: 14px; background: var(--accent); border-radius: 2px; }
+
+  .podium { display: flex; justify-content: center; align-items: flex-end; gap: 16px; margin: 8px 0 24px; }
+  .podium-entry { text-align: center; flex: 1; max-width: 220px; }
+  .podium-block { border-radius: 10px 10px 0 0; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 900; margin-bottom: 12px; }
+  .p1 .podium-block { height: 100px; background: #fbbf24; color: #000; }
+  .p2 .podium-block { height: 70px; background: #e2e8f0; color: #000; }
+  .p3 .podium-block { height: 50px; background: #cd7c2f; color: #fff; }
+  .podium-name { font-size: 12px; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 4px; }
+  .podium-score { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent); }
+  .podium-platform { font-size: 10px; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-top: 4px; }
+  .platform-nvidia { background: rgba(118,176,65,0.15); color: var(--nvidia); }
+
+  .metric { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .metric-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .metric-value { font-size: 28px; font-weight: 800; color: var(--text); margin-top: 8px; }
+  .metric-value.gold { color: var(--gold); }
+  .metric-value.green { color: var(--green); }
+  .metric-value.nvidia { color: var(--nvidia); }
+
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); }
+  td { padding: 13px 16px; border-bottom: 1px solid var(--border); }
+  tr:hover td { background: #f8fafc; }
+  tr.winner td { background: #fefce8; }
+  
+  .rank-badge { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 8px; font-weight: 700; font-size: 13px; }
+  .r1 { background: rgba(251,191,36,0.2); color: var(--gold); }
+  .r2 { background: rgba(148,163,184,0.2); color: var(--silver); }
+  .r3 { background: rgba(205,124,47,0.2); color: var(--bronze); }
+  .rn { background: var(--surface2); color: var(--muted); }
+  
+  .model-name { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  .platform-badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; text-transform: uppercase; }
+  .platform-badge.nvidia { background: rgba(118,176,65,0.15); color: var(--nvidia); }
+  .platform-badge.ollama { background: rgba(250,204,21,0.15); color: #854d0e; }
+  .platform-badge.hf { background: rgba(251,191,36,0.15); color: #92400e; }
+  
+  .status-badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; }
+  .status-ok { background: rgba(22,163,74,0.15); color: var(--green); }
+  .status-pending { background: rgba(250,204,21,0.15); color: #92400e; }
+  .status-failed { background: rgba(220,38,38,0.15); color: var(--red); }
+
+  .section-title { font-size: 22px; font-weight: 700; margin-bottom: 20px; color: var(--text); display: flex; align-items: center; gap: 12px; }
+  .section-title span { font-size: 13px; color: var(--muted); font-weight: 400; }
+  hr.divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+  footer { text-align: center; padding: 40px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
+  footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">Ultimate AI Benchmark · March 2026</div>
+  <h1>🏆 Jane Street Quant Wars</h1>
+  <p>100+ AI models from NVIDIA NIM, Ollama Cloud, and Hugging Face compete to solve the Jane Street Real-Time Market Data Forecasting challenge</p>
+  <div class="hero-meta">
+    <div class="hero-stat"><div class="num">100+</div><div class="label">Total Models</div></div>
+    <div class="hero-stat"><div class="num">58</div><div class="label">Fully Evaluated</div></div>
+    <div class="hero-stat"><div class="num">23</div><div class="label">Code Generated</div></div>
+    <div class="hero-stat"><div class="num">3</div><div class="label">Platforms</div></div>
+    <div class="hero-stat"><div class="num">0.786</div><div class="label">Best MSE</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="card" style="margin-bottom: 40px; background: linear-gradient(135deg, #fefce8 0%, #fffbeb 100%); border-color: var(--gold);">
+    <h2 style="font-size: 14px; color: var(--gold); margin-bottom: 16px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700;">🏅 Current Champion</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center;">
+      <div>
+        <div style="font-size: 32px; font-weight: 900; color: var(--text); margin-bottom: 8px;">mistralai/mistral-7b-instruct-v0.3</div>
+        <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px;">
+          <span class="platform-badge nvidia">NVIDIA NIM</span>
+          <span style="font-size: 13px; color: var(--muted);">7B Parameters</span>
+        </div>
+        <p style="color: var(--muted); font-size: 14px; line-height: 1.6;">
+          The smallest model in the top 10 achieved the best predictive accuracy, demonstrating that efficient architectures can outperform massive models on financial forecasting tasks.
+        </p>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        <div class="metric"><div class="metric-label">MSE</div><div class="metric-value green">0.78611</div></div>
+        <div class="metric"><div class="metric-label">R²</div><div class="metric-value gold">+0.002356</div></div>
+        <div class="metric"><div class="metric-label">RMSE</div><div class="metric-value">0.8866</div></div>
+        <div class="metric"><div class="metric-label">Rank</div><div class="metric-value nvidia">#1</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Platform Breakdown <span>compare results across inference providers</span></div>
+  <div class="grid3" style="margin-bottom: 32px;">
+    <div class="card">
+      <div class="card-title" style="color: var(--nvidia);">🟢 NVIDIA NIM</div>
+      <div style="font-size: 36px; font-weight: 900; color: var(--nvidia); margin-bottom: 8px;">67</div>
+      <div style="color: var(--muted); font-size: 13px; margin-bottom: 16px;">models entered</div>
+      <div style="display: flex; gap: 12px; font-size: 13px;">
+        <span style="color: var(--green);">✓ 58 scored</span>
+        <span style="color: var(--muted);">• 5 empty</span>
+        <span style="color: var(--red);">• 4 timeout</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color: #92400e;">🟡 Ollama Cloud</div>
+      <div style="font-size: 36px; font-weight: 900; color: #92400e; margin-bottom: 8px;">13</div>
+      <div style="color: var(--muted); font-size: 13px; margin-bottom: 16px;">models entered</div>
+      <div style="display: flex; gap: 12px; font-size: 13px;">
+        <span style="color: var(--green);">✓ 11 generated</span>
+        <span style="color: var(--red);">• 2 failed</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color: #b45309;">🟠 Hugging Face</div>
+      <div style="font-size: 36px; font-weight: 900; color: #b45309; margin-bottom: 8px;">13</div>
+      <div style="color: var(--muted); font-size: 13px; margin-bottom: 16px;">models entered</div>
+      <div style="display: flex; gap: 12px; font-size: 13px;">
+        <span style="color: var(--green);">✓ 6 generated</span>
+        <span style="color: var(--red);">• 7 gated</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Overall Leaderboard <span>all platforms · sorted by MSE</span></div>
+  <div class="card">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Model</th>
+            <th>Platform</th>
+            <th>Status</th>
+            <th>MSE ↓</th>
+            <th>R² ↑</th>
+            <th>Code Lines</th>
+          </tr>
+        </thead>
+        <tbody id="lb-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-title">How to Participate <span>run your own models</span></div>
+  <div class="grid3">
+    <div class="card">
+      <div class="card-title">Step 1: Choose Platform</div>
+      <p style="color: var(--muted); font-size: 14px; line-height: 1.7;">
+        Pick your inference provider: <strong>NVIDIA NIM</strong> (fastest, paid), <strong>Ollama Cloud</strong> (balanced), or <strong>Hugging Face</strong> (free tier available).
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title">Step 2: Generate Code</div>
+      <p style="color: var(--muted); font-size: 14px; line-height: 1.7;">
+        Run the competition script to generate Jupyter notebooks with model solutions for the Jane Street challenge.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title">Step 3: Evaluate & Submit</div>
+      <p style="color: var(--muted); font-size: 14px; line-height: 1.7;">
+        Execute notebooks, get MSE/R² scores, and submit your results to the unified leaderboard.
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <strong>Jane Street Quant Wars</strong> — Multi-Platform AI Benchmark<br>
+  <a href="https://github.com/gitdhirajsv">GitHub</a> · 
+  <a href="https://www.kaggle.com/competitions/jane-street-real-time-market-data-forecasting">Kaggle Competition</a> ·
+  Data for educational purposes only · Not financial advice
+</footer>
+
+<script>
+const DATA = [
+  {rank:1, model:"mistralai/mistral-7b-instruct-v0.3", platform:"nvidia", status:"OK", mse:0.78611, r2:0.002356, lines:15},
+  {rank:2, model:"yentinglin/llama-3-taiwan-70b-instruct", platform:"nvidia", status:"OK", mse:0.786624, r2:0.001704, lines:22},
+  {rank:3, model:"nvidia/nemotron-4-mini-hindi-4b-instruct", platform:"nvidia", status:"OK", mse:0.787319, r2:0.000821, lines:38},
+  {rank:4, model:"moonshotai/kimi-k2-instruct", platform:"nvidia", status:"OK", mse:0.789284, r2:-0.001673, lines:36},
+  {rank:5, model:"institute-of-science-tokyo/llama-3.1-swallow-8b-instruct-v0.1", platform:"nvidia", status:"OK", mse:0.790381, r2:-0.003065, lines:20},
+  {rank:6, model:"Qwen/Qwen2.5-Coder-32B-Instruct", platform:"hf", status:"PENDING", mse:null, r2:null, lines:null},
+  {rank:7, model:"Qwen/Qwen2.5-72B-Instruct", platform:"hf", status:"PENDING", mse:null, r2:null, lines:null},
+  {rank:8, model:"meta-llama/Llama-3.3-70B-Instruct", platform:"hf", status:"PENDING", mse:null, r2:null, lines:null},
+  {rank:9, model:"deepseek-ai/DeepSeek-V3", platform:"hf", status:"PENDING", mse:null, r2:null, lines:null},
+  {rank:10, model:"qwen3-next:80b", platform:"ollama", status:"PENDING", mse:null, r2:null, lines:null},
+  {rank:11, model:"deepseek-v3.2", platform:"ollama", status:"PENDING", mse:null, r2:null, lines:null},
+  {rank:12, model:"gemma3:27b", platform:"ollama", status:"PENDING", mse:null, r2:null, lines:null},
+];
+
+const tbody = document.getElementById('lb-body');
+DATA.forEach(row => {
+  const tr = document.createElement('tr');
+  if (row.rank === 1) tr.className = 'winner';
+  else if (row.rank <= 3) tr.className = 'top3';
+  
+  const statusClass = row.status === 'OK' ? 'status-ok' : row.status === 'PENDING' ? 'status-pending' : 'status-failed';
+  const mseDisplay = row.mse ? row.mse.toFixed(6) : '—';
+  const r2Display = row.r2 !== null ? (row.r2 >= 0 ? '+' : '') + row.r2.toFixed(6) : '—';
+  const linesDisplay = row.lines || '—';
+  
+  tr.innerHTML = `
+    <td><span class="rank-badge r${row.rank <= 3 ? row.rank : 'n'}">${row.rank}</span></td>
+    <td><div class="model-name">${row.model}</div></td>
+    <td><span class="platform-badge ${row.platform}">${row.platform}</span></td>
+    <td><span class="status-badge ${statusClass}">${row.status}</span></td>
+    <td class="score">${mseDisplay}</td>
+    <td class="score">${r2Display}</td>
+    <td>${linesDisplay}</td>
+  `;
+  tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>
