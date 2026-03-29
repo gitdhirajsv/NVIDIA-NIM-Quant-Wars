@@ -1,5 +1,7 @@
 # Jane Street Quant Wars
 
+Cross‑platform LLM quant research bench – 80 committed notebook reports across NVIDIA NIM, Ollama Cloud, and Hugging Face, rescored on the Jane Street Real‑Time Market Data Forecasting challenge. Includes a live institutional dashboard that ranks models by actual forecasting quality.
+
 ![Python](https://img.shields.io/badge/Python-Research%20Workflow-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Polars](https://img.shields.io/badge/Data-Polars-1F2430?style=flat-square)
 ![XGBoost](https://img.shields.io/badge/Model-XGBoost-EC6B23?style=flat-square)
