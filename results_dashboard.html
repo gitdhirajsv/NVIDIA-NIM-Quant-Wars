@@ -382,15 +382,15 @@
   <div class="hero-badge">Institutional Research Presentation - March 2026</div>
   <h1>Jane Street Quant Wars</h1>
   <p>
-    Full cross-platform benchmark dashboard for the project. This page preserves the institutional research presentation styling while separating the archived API LLM notebook book from the new heavyweight Chat &amp; Agent benchmark run executed under a strict CPU-only 12GB safety envelope.
+    Full cross-platform notebook report book for the project. This dashboard catalogs every committed report notebook currently preserved in the repository across NVIDIA NIM, Ollama Cloud, and Hugging Face, then ranks those reports under one shared evaluation harness.
   </p>
   <div class="hero-meta">
-    <div class="hero-stat"><div class="num" id="hero-total">0</div><div class="label">API Notebook Reports</div></div>
-    <div class="hero-stat"><div class="num" id="hero-scored">0</div><div class="label">Scored API LLMs</div></div>
+    <div class="hero-stat"><div class="num" id="hero-total">0</div><div class="label">Notebook Reports</div></div>
+    <div class="hero-stat"><div class="num" id="hero-scored">0</div><div class="label">Scored Reports</div></div>
     <div class="hero-stat"><div class="num" id="hero-generated">0</div><div class="label">Empty Notebooks</div></div>
     <div class="hero-stat"><div class="num" id="hero-unavailable">0</div><div class="label">Research Venues</div></div>
-    <div class="hero-stat"><div class="num" id="hero-alpha">0</div><div class="label">Chat Models</div></div>
-    <div class="hero-stat"><div class="num" id="hero-best">-</div><div class="label">Best API R2</div></div>
+    <div class="hero-stat"><div class="num" id="hero-alpha">0</div><div class="label">Positive Alpha</div></div>
+    <div class="hero-stat"><div class="num" id="hero-best">-</div><div class="label">Best Saved MSE</div></div>
   </div>
 </div>
 
@@ -403,34 +403,33 @@
       </div>
       <p class="body-copy">
         The answer from the committed repository reports is clearer now. The repo contains one rescored cross-platform report book: 63 NVIDIA reports, 11 Ollama reports, and 6 Hugging Face reports, all evaluated under the same harness, plus a small set of empty NVIDIA notebooks that are shown explicitly instead of being hidden.
-        In parallel, 12 heavyweight Chat &amp; Agent models (Claude, DeepSeek-R1, Gemini 3.1 Pro, Gemini 3 Flash, GLM-5 Turbo, GPT-5.x, Kimi 2.5, and Qwen 3.5) were executed on the full 20GB dataset under a strict CPU-only runbook with Polars streaming, float32 downcasting, and temporal train/validation splits.
       </p>
       <br>
       <p class="body-copy">
-        That makes this page a report surface, not a marketing surface. It is deliberately transparent about what was scored, what was empty, which API venue produced the strongest notebook report, and how those archived API results compare with the newer chat-model scripts once both are sorted by the same visible MSE and R&sup2; metrics.
+        That makes this page a report surface, not a marketing surface. It is deliberately transparent about what was scored, what was empty, which venue produced the strongest models, and how often compact code still held up out of sample once the notebooks were rescored inside this repo.
       </p>
     </div>
 
     <div class="card winner-card">
-      <div class="eyebrow">Current API LLM Leader</div>
+      <div class="eyebrow">Current Scored Leader</div>
       <div class="winner-name" id="winner-name">-</div>
       <div class="pill-row">
         <span class="pill" id="winner-platform-pill">-</span>
         <span class="pill ok">Scored</span>
       </div>
       <p class="winner-copy" id="winner-copy">
-        The current API leader is taken from the rescored notebook reports committed in this repository.
+        The current leader is taken from the rescored notebook reports committed in this repository.
       </p>
       <div class="metric-grid" style="margin-top: 18px;">
         <div class="metric">
-          <div class="metric-label">R2</div>
-          <div class="metric-value" id="winner-r2">-</div>
-          <div class="metric-note">Primary ranking metric. Higher is better.</div>
-        </div>
-        <div class="metric">
           <div class="metric-label">MSE</div>
           <div class="metric-value" id="winner-mse">-</div>
-          <div class="metric-note">Secondary tie-break metric. Lower is better.</div>
+          <div class="metric-note">Lower is better.</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">R2</div>
+          <div class="metric-value" id="winner-r2">-</div>
+          <div class="metric-note">Positive values beat the mean baseline.</div>
         </div>
         <div class="metric">
           <div class="metric-label">Code Lines</div>
@@ -451,68 +450,9 @@
   <div class="grid3" id="platform-cards"></div>
 
   <div class="card" style="margin-bottom: 28px;">
-    <div class="eyebrow">Current Chat &amp; Agent Leader</div>
-    <div class="winner-name" id="chat-winner-name">-</div>
-    <div class="pill-row">
-      <span class="pill generated">Chat &amp; Agent UI</span>
-      <span class="pill ok">Scored</span>
-    </div>
-    <p class="winner-copy" id="chat-winner-copy">
-      The current chat-model leader is taken from the live CPU-only benchmark run saved in <span class="mono">platforms/chat_agent/agent_leaderboard.csv</span>.
-    </p>
-    <div class="metric-grid" style="margin-top: 18px;">
-      <div class="metric">
-        <div class="metric-label">R2</div>
-        <div class="metric-value" id="chat-winner-r2">-</div>
-        <div class="metric-note">Primary ranking metric. Higher is better.</div>
-      </div>
-      <div class="metric">
-        <div class="metric-label">MSE</div>
-        <div class="metric-value" id="chat-winner-mse">-</div>
-        <div class="metric-note">Reported alongside R&sup2; for direct benchmarking.</div>
-      </div>
-      <div class="metric">
-        <div class="metric-label">Models Evaluated</div>
-        <div class="metric-value" id="chat-winner-count">-</div>
-        <div class="metric-note">Heavyweight chat and agent models executed under one runbook.</div>
-      </div>
-      <div class="metric">
-        <div class="metric-label">Execution Track</div>
-        <div class="metric-value" id="chat-winner-platform">-</div>
-        <div class="metric-note">Full-dataset CPU-only benchmark with temporal validation.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card" style="margin-bottom: 28px;">
-    <div class="section-title">Chat &amp; Agent Models</div>
+    <div class="section-title">Top Scored Book</div>
     <div class="section-subtitle">
-      These 12 heavyweight models were evaluated via direct chat and agent UI interactions. Each script was run against the full 20GB Jane Street dataset using a temporal 80/20 split by <span class="mono">date_id</span>, strict anti-leakage feature engineering, Polars streaming collection, float32 downcasting before collect, and CPU-only XGBoost on an Intel i5 12-thread machine with a 12GB RAM safety ceiling.
-      <br><br>
-      <strong>Methodology note:</strong> The API LLM leaderboard below is extracted from the current live dashboard book and was evaluated on a 100K-row random sample with a standardized XGBoost harness. The Chat &amp; Agent leaderboard below uses the full dataset with a time-aware validation split. Both sections expose the same MSE and R&sup2; formulas, but they remain separate tracks and are ranked internally by highest R&sup2; first.
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Model</th>
-            <th>Platform</th>
-            <th>Status</th>
-            <th>MSE</th>
-            <th>R2</th>
-          </tr>
-        </thead>
-        <tbody id="chat-models-body"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="card" style="margin-bottom: 28px;">
-    <div class="section-title">API LLM Leaderboard</div>
-    <div class="section-subtitle">
-      These are the best fully scored API LLM results currently saved in the live dashboard book. Rankings in this section are ordered strictly by highest R&sup2; first, with lower MSE used only as a tie-breaker.
-      Evaluated on a 100K-row random sample with the standardized XGBoost harness used by the archived API notebook reports.
+      These are the best fully scored results currently saved in the project. This ranking is based only on rows with real MSE and R2 values.
     </div>
     <div class="table-wrap">
       <table>
@@ -532,9 +472,9 @@
   </div>
 
   <div class="card">
-    <div class="section-title">Full Report Book &mdash; API LLMs</div>
+    <div class="section-title">Full Report Book</div>
     <div class="section-subtitle">
-      This table includes every committed cross-platform API LLM notebook report currently represented in the rescored leaderboard file, with scored entries displayed in descending R&sup2; order inside each filter.
+      This table includes every committed cross-platform notebook report currently represented in the rescored leaderboard file.
     </div>
     <div class="filter-row">
       <button class="filter-btn active" data-filter="all">All Platforms</button>
@@ -653,22 +593,6 @@ const CSV_DATA = String.raw`rank,platform,model,status,mse,rmse,r2,feature_count
 -,nvidia,nvidia_nemotron-3-super-120b-a12b,EMPTY_NOTEBOOK,,,,0,0,False,False,False,platforms\nvidia\generated_notebooks\nvidia_nemotron-3-super-120b-a12b.ipynb,Empty notebook
 -,nvidia,nvidia_nvidia-nemotron-nano-9b-v2,EMPTY_NOTEBOOK,,,,0,0,False,False,False,platforms\nvidia\generated_notebooks\nvidia_nvidia-nemotron-nano-9b-v2.ipynb,Empty notebook`;
 
-/* ── Chat & Agent Models ── */
-/* This data is populated from agent_leaderboard.csv after running run_chat_models.py */
-const CHAT_CSV_DATA = String.raw`model,platform,mse,r2,status
-Claude Sonnet 4.6 Max Reasoning,Chat & Agent UI,0.233276,0.704348,OK
-Qwen 3.5 (Chat),Chat & Agent UI,0.597766,0.094435,OK
-Claude Opus (Thinking Model),Chat & Agent UI,0.582785,0.015766,OK
-GLM-5 Turbo (Chat),Chat & Agent UI,0.980088,0.007303,OK
-Kimi 2.5 Agent,Chat & Agent UI,0.980088,0.007303,OK
-DeepSeek-R1 (Chat),Chat & Agent UI,0.985331,0.001992,OK
-GPT 5.4 Extra High Code,Chat & Agent UI,0.603041,0.000163,OK
-GPT 5.3 Extra High Codex,Chat & Agent UI,0.603079,0.0001,OK
-GPT 5.2 Extra High Codex,Chat & Agent UI,0.603198,-0.000098,OK
-Gemini 3 Flash,Chat & Agent UI,0.637542,-0.000625,OK
-Gemini 3.1 Pro (Low),Chat & Agent UI,0.637542,-0.000625,OK
-Gemini 3.1 Pro,Chat & Agent UI,0.637542,-0.000625,OK`;
-
 function parseCsv(raw) {
   const lines = raw.trim().split(/\r?\n/);
   const headers = lines[0].split(",");
@@ -678,7 +602,7 @@ function parseCsv(raw) {
     headers.forEach((header, index) => {
       row[header] = parts[index] ?? "";
     });
-    row.rankNum = row.rank ? (row.rank === "-" ? null : Number(row.rank)) : null;
+    row.rankNum = row.rank === "-" ? null : Number(row.rank);
     row.mseNum = row.mse ? Number(row.mse) : null;
     row.r2Num = row.r2 ? Number(row.r2) : null;
     row.linesNum = row.code_lines ? Number(row.code_lines) : 0;
@@ -687,25 +611,10 @@ function parseCsv(raw) {
 }
 
 const rows = parseCsv(CSV_DATA);
-const chatRows = parseCsv(CHAT_CSV_DATA);
-const scored = rows.filter((row) => row.status === "OK" && row.mseNum !== null).sort((a, b) => {
-  if ((b.r2Num ?? Number.NEGATIVE_INFINITY) !== (a.r2Num ?? Number.NEGATIVE_INFINITY)) {
-    return (b.r2Num ?? Number.NEGATIVE_INFINITY) - (a.r2Num ?? Number.NEGATIVE_INFINITY);
-  }
-  return (a.mseNum ?? Number.POSITIVE_INFINITY) - (b.mseNum ?? Number.POSITIVE_INFINITY);
-});
-scored.forEach((row, index) => { row.performanceRank = index + 1; });
+const scored = rows.filter((row) => row.status === "OK" && row.mseNum !== null).sort((a, b) => a.mseNum - b.mseNum);
 const emptyNotebooks = rows.filter((row) => row.status === "EMPTY_NOTEBOOK");
 const positiveAlpha = scored.filter((row) => row.r2Num > 0);
 const currentLeader = scored[0];
-const chatScored = chatRows.filter((row) => row.status === "OK" && row.mseNum !== null).sort((a, b) => {
-  if ((b.r2Num ?? Number.NEGATIVE_INFINITY) !== (a.r2Num ?? Number.NEGATIVE_INFINITY)) {
-    return (b.r2Num ?? Number.NEGATIVE_INFINITY) - (a.r2Num ?? Number.NEGATIVE_INFINITY);
-  }
-  return (a.mseNum ?? Number.POSITIVE_INFINITY) - (b.mseNum ?? Number.POSITIVE_INFINITY);
-});
-chatScored.forEach((row, index) => { row.performanceRank = index + 1; });
-const currentChatLeader = chatScored[0];
 const venueCount = new Set(rows.map((row) => row.platform)).size;
 
 function platformClass(platform) {
@@ -740,8 +649,8 @@ function renderHero() {
   document.getElementById("hero-scored").textContent = scored.length;
   document.getElementById("hero-generated").textContent = emptyNotebooks.length;
   document.getElementById("hero-unavailable").textContent = venueCount;
-  document.getElementById("hero-alpha").textContent = chatRows.length;
-  document.getElementById("hero-best").textContent = currentLeader ? currentLeader.r2Num.toFixed(4) : "-";
+  document.getElementById("hero-alpha").textContent = positiveAlpha.length;
+  document.getElementById("hero-best").textContent = currentLeader ? currentLeader.mseNum.toFixed(4) : "-";
 }
 
 function renderWinner() {
@@ -751,22 +660,11 @@ function renderWinner() {
   platformPill.textContent = platformLabel(currentLeader.platform);
   platformPill.className = `pill ${platformClass(currentLeader.platform)}`;
   document.getElementById("winner-copy").textContent =
-    `${currentLeader.model} is the current API leader in the rescored repository book. It came from ${platformLabel(currentLeader.platform)}, posted the strongest saved R2, and remains one of only ${positiveAlpha.length} API notebook reports with positive out-of-sample alpha.`;
-  document.getElementById("winner-r2").textContent = currentLeader.r2Num.toFixed(6);
+    `${currentLeader.model} is the current scored leader in the rescored repository book. It came from ${platformLabel(currentLeader.platform)}, posted the lowest recorded MSE, and is one of only ${positiveAlpha.length} scored entries with positive R2 in the current book.`;
   document.getElementById("winner-mse").textContent = currentLeader.mseNum.toFixed(6);
+  document.getElementById("winner-r2").textContent = currentLeader.r2Num.toFixed(6);
   document.getElementById("winner-lines").textContent = currentLeader.linesNum;
   document.getElementById("winner-platform").textContent = platformLabel(currentLeader.platform);
-}
-
-function renderChatWinner() {
-  if (!currentChatLeader) return;
-  document.getElementById("chat-winner-name").textContent = currentChatLeader.model;
-  document.getElementById("chat-winner-copy").textContent =
-    `${currentChatLeader.model} is the current leader in the live chat and agent benchmark run. The score was produced on the full dataset under the CPU-only 12GB-safe execution pipeline and ranked by highest R2 first.`;
-  document.getElementById("chat-winner-r2").textContent = currentChatLeader.r2Num.toFixed(6);
-  document.getElementById("chat-winner-mse").textContent = currentChatLeader.mseNum.toFixed(6);
-  document.getElementById("chat-winner-count").textContent = chatRows.length;
-  document.getElementById("chat-winner-platform").textContent = "Chat & Agent UI";
 }
 
 function renderPlatformCards() {
@@ -803,7 +701,7 @@ function renderTopScored() {
     if (index === 0) tr.className = "top1";
     else if (index < 3) tr.className = "top3";
     tr.innerHTML = `
-      <td class="mono">${row.performanceRank}</td>
+      <td class="mono">${row.rank}</td>
       <td class="mono">${row.model}</td>
       <td><span class="pill ${platformClass(row.platform)}">${platformLabel(row.platform)}</span></td>
       <td class="mono">${row.mseNum.toFixed(6)}</td>
@@ -823,16 +721,13 @@ function noteForRow(row) {
 function renderAllTable(platform = "all") {
   const body = document.getElementById("all-models-body");
   body.innerHTML = "";
-  const filteredScored = platform === "all" ? scored : scored.filter((row) => row.platform === platform);
-  const filteredUnscored = (platform === "all" ? rows : rows.filter((row) => row.platform === platform))
-    .filter((row) => row.status !== "OK" || row.mseNum === null);
-  const filtered = filteredScored.concat(filteredUnscored);
+  const filtered = platform === "all" ? rows : rows.filter((row) => row.platform === platform);
   filtered.forEach((row) => {
     const tr = document.createElement("tr");
-    if (row.performanceRank === 1) tr.className = "top1";
-    else if (row.performanceRank && row.performanceRank <= 3) tr.className = "top3";
+    if (row.rankNum === 1) tr.className = "top1";
+    else if (row.rankNum && row.rankNum <= 3) tr.className = "top3";
     tr.innerHTML = `
-      <td class="mono">${row.performanceRank || "-"}</td>
+      <td class="mono">${row.rank || "-"}</td>
       <td class="mono">${row.model}</td>
       <td><span class="pill ${platformClass(row.platform)}">${platformLabel(row.platform)}</span></td>
       <td><span class="status-badge ${statusClass(row.status)}">${statusLabel(row.status)}</span></td>
@@ -841,28 +736,6 @@ function renderAllTable(platform = "all") {
       <td class="mono">${row.linesNum || "-"}</td>
       <td class="muted">${noteForRow(row)}</td>
     `;
-    body.appendChild(tr);
-  });
-}
-
-function renderChatModels() {
-  var body = document.getElementById("chat-models-body");
-  var chatPending = chatRows.filter(function(r) { return r.status !== "OK"; });
-  var orderedChat = chatScored.concat(chatPending);
-  orderedChat.forEach(function(row) {
-    var rank = row.status === "OK" ? row.performanceRank : "-";
-    var tr = document.createElement("tr");
-    if (rank === 1) tr.className = "top1";
-    else if (rank <= 3 && rank !== "-") tr.className = "top3";
-    var statusCls = row.status === "OK" ? "status-ok" : (row.status === "PENDING" ? "status-empty" : "status-failed");
-    var statusText = row.status === "OK" ? "Scored" : (row.status === "PENDING" ? "Pending" : row.status);
-    tr.innerHTML =
-      '<td class="mono">' + rank + '</td>' +
-      '<td class="mono">' + row.model + '</td>' +
-      '<td><span class="pill generated">' + row.platform + '</span></td>' +
-      '<td><span class="status-badge ' + statusCls + '">' + statusText + '</span></td>' +
-      '<td class="mono">' + (row.mseNum !== null ? row.mseNum.toFixed(6) : "-") + '</td>' +
-      '<td class="mono">' + (row.r2Num !== null ? row.r2Num.toFixed(6) : "-") + '</td>';
     body.appendChild(tr);
   });
 }
@@ -879,10 +752,8 @@ function wireFilters() {
 
 renderHero();
 renderWinner();
-renderChatWinner();
 renderPlatformCards();
 renderTopScored();
-renderChatModels();
 renderAllTable("all");
 wireFilters();
 </script>
