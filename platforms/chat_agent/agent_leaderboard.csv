@@ -1,0 +1,13 @@
+filename,model_name,return_code,status,out_of_sample_r2,out_of_sample_mse,started_at_utc,finished_at_utc,log_file
+claude_opus_thinking_jane_street.py,Claude Opus (Thinking Model),0,ok,0.015766,0.582785,2026-03-29T16:49:42.287481+00:00,2026-03-29T16:50:16.287790+00:00,claude_opus_thinking_jane_street.log
+claude_sonnet_jane_street.py,Claude Sonnet 4.6 Max Reasoning,0,ok,0.704348,0.233276,2026-03-29T16:50:46.289622+00:00,2026-03-29T16:51:46.567810+00:00,claude_sonnet_jane_street.log
+deepseek_r1_jane_street.py,DeepSeek-R1 (Chat),0,ok,0.001992,0.985331,2026-03-29T16:52:16.570946+00:00,2026-03-29T16:52:47.005755+00:00,deepseek_r1_jane_street.log
+gemini_3_1_pro_jane_street.py,Gemini 3.1 Pro,0,ok,-0.000625,0.637542,2026-03-29T16:53:17.009687+00:00,2026-03-29T16:55:12.234686+00:00,gemini_3_1_pro_jane_street.log
+gemini_3_1_pro_low_jane_street.py,Gemini 3.1 Pro (Low),0,ok,-0.000625,0.637542,2026-03-29T16:55:42.237415+00:00,2026-03-29T16:57:36.935200+00:00,gemini_3_1_pro_low_jane_street.log
+gemini_3_flash_jane_street.py,Gemini 3 Flash,0,ok,-0.000625,0.637542,2026-03-29T16:58:06.938007+00:00,2026-03-29T17:01:58.295939+00:00,gemini_3_flash_jane_street.log
+glm5_turbo_jane_street.py,GLM-5 Turbo (Chat),0,ok,0.007303,0.980088,2026-03-29T17:02:28.298282+00:00,2026-03-29T17:02:56.263870+00:00,glm5_turbo_jane_street.log
+gpt_5_2_jane_street.py,GPT 5.2 Extra High Codex,0,ok,-9.8e-05,0.603198,2026-03-29T17:03:26.265566+00:00,2026-03-29T17:04:00.931405+00:00,gpt_5_2_jane_street.log
+gpt_5_3_codex_jane_street.py,GPT 5.3 Extra High Codex,0,ok,0.0001,0.603079,2026-03-29T17:04:30.933804+00:00,2026-03-29T17:05:04.017649+00:00,gpt_5_3_codex_jane_street.log
+gpt_5_4_xh_jane_street.py,GPT 5.4 Extra High Code,0,ok,0.000163,0.603041,2026-03-29T17:05:34.019938+00:00,2026-03-29T17:06:06.475528+00:00,gpt_5_4_xh_jane_street.log
+kimi2.5_jane_street.py,Kimi 2.5 Agent,0,ok,0.007303,0.980088,2026-03-29T17:06:36.478226+00:00,2026-03-29T17:07:21.922274+00:00,kimi2.5_jane_street.log
+qwen_3_5_jane_street.py,Qwen 3.5 (Chat),0,ok,0.094435,0.597766,2026-03-29T17:07:51.926974+00:00,2026-03-29T17:08:36.882583+00:00,qwen_3_5_jane_street.log
