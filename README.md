@@ -184,3 +184,9 @@ If local Jane Street parquet data is missing, the evaluator falls back to synthe
 ## Disclaimer
 
 This repository is a model-evaluation and research exercise. It is not investment advice, not a trading recommendation, and not a production execution system.
+
+<div align="center">
+
+Built by [Azalyst](https://github.com/gitdhirajsv) | Azalyst Quant Research
+
+</div>
